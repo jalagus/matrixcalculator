@@ -1,23 +1,39 @@
 package matrixcalculator;
 
+import java.util.Arrays;
+
 public class Matrix {
+    
+    /**
+     * Matriisin korkeus
+     */
     final public int m;
+    
+    /**
+     * Matriisin leveys
+     */
     final public int n;
     final private double[][] values;
     
+    /**
+     * Muodostaa matriisin annetun kaksiulotteisen double-taulukon pohjalta
+     *
+     * @param matrix
+     */
     public Matrix(double[][] matrix) {
         this.m = matrix.length;
         this.n = matrix[0].length;
         this.values = matrix;
     }
     
-    // Add two matrices
+    /**
+     * Laske kaksi matriisia yhteen
+     *
+     * @param mat matriisi jonka kanssa yhteenlasku suoritetaan
+     * @return Matrix-olion, jossa on yhteenlaskun tulos
+     */
     public Matrix add(Matrix mat) {
-        if (this.m != mat.m || this.n != mat.n) {
-            return null;
-        }
-        
-        if (this.m != mat.m || this.n != mat.n) {
+        if (!checkDimensions(this, mat)) {
             return null;
         }
         
@@ -33,8 +49,17 @@ public class Matrix {
         return new Matrix(retMatrix);
     }
     
-    // Multiply with other matrix
+    /**
+     * Laske kahden matriisin kertolasku
+     *
+     * @param mat - matriisi jonka kanssa kertolasku suoritetaan
+     * @return Matrix-olio, jossa on kertolaskun tulos
+     */
     public Matrix multiply(Matrix mat) {
+        if (!checkDimensions(this, mat)) {
+            return null;
+        }
+        
         double[][] retMatrix = new double[m][n];
         double[][] matrix = mat.getValues();
         
@@ -46,7 +71,7 @@ public class Matrix {
         
         return new Matrix(retMatrix);
     }
-    
+  
     private double matrixPosSum(int col, int row, double[][] mat1, double[][] mat2) {
         double sum = 0;
         
@@ -58,7 +83,12 @@ public class Matrix {
 
     }
     
-    // Multiply with coefficent
+    /**
+     * Kertoo matriisia kertoimella
+     *
+     * @param coefficent kerroin, jolla matriisia kerrotaan
+     * @return
+     */
     public Matrix multiply(double coefficent) {
         double[][] matrix = new double[m][n];
         
@@ -71,41 +101,87 @@ public class Matrix {
         return new Matrix(matrix);
     }
     
-    // Calculate determinant
-    public int determinant() {
+    /**
+     * Laskee matriisin determinantin
+     *
+     * @return 
+     * @throws Exception
+     */
+    public int determinant() throws Exception {
         if (this.m != this.n) {
-            return 0;
+            throw new IllegalArgumentException();
         }
+        
         return 4;
     }
     
-    // Return inverse matrix
+    /**
+     * Laskee matriisin käänteismatriisin
+     *
+     * @return
+     */
     public Matrix inverse() {
+        try {
+            int det = this.determinant();
+            
+            double[][] matrix = this.multiply((1 / (double) det)).getValues();
         
-        int det = this.determinant();
-        
-        double[][] matrix = this.multiply((1 / (double) det)).getValues();
-        
-        return new Matrix(matrix);
+            return new Matrix(matrix);
+        }
+        catch (Exception ex) {
+            return null;
+        }
     }    
     
-    // Reduced row echelon form
+    /**
+     * Laskee matriisin redusoidun porrasmuodon
+     *
+     * @return Matrix-olion, jossa matriisi on redusoidussa porramuodossa
+     */
     public Matrix rref() {
         return null;
     }
     
+    /**
+     * Palauttaa matriisin ominaisarvot
+     *
+     * @return 
+     */
     public int[] eigenvalues() {
         return new int[2];
     }
 
+    /**
+     * Palauttaa matriisin ominaisvektorit
+     *
+     * @return
+     */
     public int[] eigenvectors() {
         return new int[2];
     }    
     
+    /**
+     * Palauttaa matriisin arvot kaksiulotteisena double-taulukkona
+     *
+     * @return
+     */
     public double[][] getValues() {
         return values;
     }
     
+    private boolean checkDimensions(Matrix m1, Matrix m2) {
+        if (m1.m != m2.m || m1.n != m2.n) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Palauttaa matriisin tulostusmuodossa
+     *
+     * @return
+     */
     @Override
     public String toString() {
         String ret = "";
@@ -127,4 +203,29 @@ public class Matrix {
         
         return ret;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Arrays.deepHashCode(this.values);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Matrix other = (Matrix) obj;
+        
+        if (!Arrays.deepEquals(this.values, other.values)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
