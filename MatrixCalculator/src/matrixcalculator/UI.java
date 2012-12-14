@@ -1,18 +1,28 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package matrixcalculator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
-/**
- *
- * @author jalagus
- */
 public class UI {
     
+    public class Command {
+        String desc;
+        
+        public Command(String desc) {
+            this.desc = desc;
+        }
+        
+        public void run() {
+            System.out.println("Running: " + this.desc);
+        }
+        
+    }
+    
     ArrayList<Matrix> matrices = new ArrayList<Matrix>();
+    
+    Map<String, String> commands = new HashMap<String, String>();
     
     public UI() {
         
@@ -22,9 +32,9 @@ public class UI {
         System.out.println("Matriisilaskin v0.1");
         System.out.println("---");
         System.out.println("Toiminnot: ");
-        System.out.println("1) Syötä matriisi");
-        System.out.println("2) Lataa matriisi/matriisit");
-        System.out.println("3) Tulosta nykyiset matriisit");
+        for (Entry<String, String> command : commands.entrySet()) {
+            System.out.println(command.getKey());
+        }
         
     }
 }
