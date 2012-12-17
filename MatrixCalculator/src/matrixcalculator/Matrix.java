@@ -60,12 +60,12 @@ public class Matrix {
             return null;
         }
         
-        double[][] retMatrix = new double[this.n][mat.n];
+        double[][] retMatrix = new double[this.m][mat.n];
         double[][] matrix = mat.getValues();
         
         for (int i = 0; i < retMatrix.length; i++) {
             for (int a = 0; a < retMatrix[0].length; a++) {
-                retMatrix[i][a] = matrixPosSum(i, a, values, matrix);
+                retMatrix[i][a] = matrixPosSum(a, i, values, matrix);
             }
         }         
         
@@ -75,8 +75,8 @@ public class Matrix {
     private double matrixPosSum(int col, int row, double[][] mat1, double[][] mat2) {
         double sum = 0;
         
-        for (int i = 0; i < mat1.length; i++) {
-            sum += mat1[i][col] * mat2[row][i];
+        for (int i = 0; i < mat2.length; i++) {
+            sum += mat1[row][i] * mat2[i][col];
         }
         
         return sum;
