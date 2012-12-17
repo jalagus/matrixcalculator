@@ -37,6 +37,24 @@ public class MatrixCalculatorTests {
     }
 
     @Test
+    public void konstruktoriAlustaaOikein() {
+        double[][] matA = {{1,2},{2,4},{3,4}};
+        
+        Matrix A = new Matrix(matA);
+        
+        assertEquals(3, A.m);
+        assertEquals(2, A.n);
+        
+        double[][] testMatrix = A.getValues();
+        
+        for (int i = 0; i < testMatrix.length; i++) {
+            for (int a = 0; a < testMatrix[0].length; a++) {
+                assertEquals(testMatrix[i][a], matA[i][a], 2);
+            }
+        }
+    }    
+    
+    @Test
     public void matriisienYhteenlaskuPalauttaaOikein() {
         double[][] matA = {{1,2},{2,4}};
         double[][] matB = {{1,2},{2,4}};
@@ -85,5 +103,38 @@ public class MatrixCalculatorTests {
         catch (Exception ex) {
             
         }
+    }
+    
+    @Test
+    public void matriisinKaanteismatriisiPalauttaaOikein() {
+        double[][] matA = {{2,2},{1,2}};
+        double[][] matB = {{1,-1},{-0.5, 1}};
+        
+        Matrix A = new Matrix(matA);
+        Matrix B = new Matrix(matB);
+        
+        assertEquals(B, A.inverse());        
+    }
+    
+    @Test
+    public void matriisinTranspoosiToimiiOikein() {
+        double[][] matA = {{1,2,3},{4,5,6}};
+        double[][] matB = {{1,4},{2,5},{3,6}};
+        
+        Matrix A = new Matrix(matA);
+        Matrix B = new Matrix(matB);
+        
+        assertEquals(B, A.transpose());
+        
+        assertEquals(A, A.transpose().transpose());
+    }
+    
+    @Test
+    public void transpoosinTranspoosiOnAlkuperainen() {
+        double[][] matA = {{1,2,3},{4,5,6}};
+        
+        Matrix A = new Matrix(matA);
+        
+        assertEquals(A, A.transpose().transpose());
     }
 }

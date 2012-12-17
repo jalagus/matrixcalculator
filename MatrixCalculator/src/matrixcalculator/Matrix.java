@@ -112,7 +112,7 @@ public class Matrix {
             throw new IllegalArgumentException();
         }
         
-        return 4;
+        return 2;
     }
     
     /**
@@ -124,14 +124,50 @@ public class Matrix {
         try {
             int det = this.determinant();
             
+            if (det == 0) {
+                return null;
+            }
+            
             double[][] matrix = this.multiply((1 / (double) det)).getValues();
         
+            for (int i = 0; i < matrix.length; i++) {
+                for (int a = 0; a < matrix[0].length; a++) {
+                    if (a % 2 == 0) {
+                        if (i % 2 == 1) {
+                            matrix[i][a] *= -1;
+                        }
+                    }
+                    else {
+                        if (i % 2 == 0) {
+                            matrix[i][a] *= -1;
+                        }
+                    }
+                }
+            }
+            
             return new Matrix(matrix);
         }
         catch (Exception ex) {
             return null;
         }
     }    
+    
+    /**
+     * Palauttaa matriisin transpoosin
+     * 
+     * @return
+     */
+    public Matrix transpose() {
+        double[][] retM = new double[this.n][this.m];
+        
+        for (int i = 0; i < this.m; i++) {
+            for (int a = 0; a < this.n; a++) {
+                retM[a][i] = this.values[i][a];
+            }
+        }
+        
+        return new Matrix(retM);
+    }
     
     /**
      * Laskee matriisin redusoidun porrasmuodon
