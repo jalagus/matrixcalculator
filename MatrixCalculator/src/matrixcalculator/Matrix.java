@@ -56,16 +56,16 @@ public class Matrix {
      * @return Matrix-olio, jossa on kertolaskun tulos
      */
     public Matrix multiply(Matrix mat) {
-        if (!checkDimensions(this, mat)) {
+        if (this.n != mat.m) {
             return null;
         }
         
-        double[][] retMatrix = new double[m][n];
+        double[][] retMatrix = new double[this.n][mat.n];
         double[][] matrix = mat.getValues();
         
-        for (int i = 0; i < m; i++) {
-            for (int a = 0; a < n; a++) {
-                retMatrix[i][a] = matrixPosSum(a, i, matrix, values);
+        for (int i = 0; i < retMatrix.length; i++) {
+            for (int a = 0; a < retMatrix[0].length; a++) {
+                retMatrix[i][a] = matrixPosSum(i, a, values, matrix);
             }
         }         
         
