@@ -98,7 +98,7 @@ public class MatrixCalculatorTests {
         
         Matrix A = new Matrix(matA);
         try {
-            assertEquals(A.determinant(), -2);
+            assertEquals(A.determinant(), -2, 2);
         }
         catch (Exception ex) {
             
@@ -136,5 +136,38 @@ public class MatrixCalculatorTests {
         Matrix A = new Matrix(matA);
         
         assertEquals(A, A.transpose().transpose());
+    }
+    
+    @Test
+    public void redusoituPorrasmuotoRakentuuOikein() {
+        double[][] matA = {{1,2,0},{0,2,1},{1,2,1}};
+        double[][] matB = {{1,0,0},{0,1,0},{0,0,1}};
+        
+        Matrix A = new Matrix(matA);
+        Matrix B = new Matrix(matB);
+                
+        assertEquals(B, A.rref());        
+    }
+    
+    @Test
+    public void palauttaaOikeatOminaisarvot() {
+        double[][] matA = {{1,2,0},{0,2,1},{1,2,1}};
+        double[][] matB = {{1,0,0},{0,1,0},{0,0,1}};
+        
+        Matrix A = new Matrix(matA);
+        Matrix B = new Matrix(matB);
+                
+        assertEquals(B, A.rref());         
+    }
+    
+    @Test
+    public void palauttaaOikeatOminaisvektorit() {
+        double[][] matA = {{1,2,0},{0,2,1},{1,2,1}};
+        double[][] matB = {{1,0,0},{0,1,0},{0,0,1}};
+        
+        Matrix A = new Matrix(matA);
+        Matrix B = new Matrix(matB);
+                
+        assertEquals(B, A.rref());         
     }
 }

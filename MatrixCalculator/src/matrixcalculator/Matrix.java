@@ -107,12 +107,54 @@ public class Matrix {
      * @return 
      * @throws Exception
      */
-    public int determinant() throws Exception {
+    public double determinant() {
         if (this.m != this.n) {
             throw new IllegalArgumentException();
         }
         
-        return 2;
+        return detHelper(this.values);
+    }
+    
+    public double detHelper(double mat[][]) {
+        if (mat.length == 2 && mat[0].length == 2) {
+            return det2x2(mat);
+        }
+        
+        double sum = 0;
+        
+        for (int i = 0; i < mat[0].length; i++) {
+            if (i % 2 == 1) {
+                mat[0][i] *= -1;
+                sum += mat[0][i] * detHelper(stripRow(mat, i));  
+            }
+            else {
+                sum += mat[0][i] * detHelper(stripRow(mat, i));  
+            }
+            
+        }
+        
+        return sum;
+    }
+    
+    public double[][] stripRow(double mat[][], int index) {
+        double[][] retMatrix = new double[mat.length - 1][mat[0].length - 1];
+        
+        int x = 0;
+        
+        for (int i = 0; i < mat[0].length; i++) {
+            if (i != index) {
+                for (int a = 1; a < mat.length; a++) {
+                    retMatrix[a-1][x] = mat[a][i];
+                }
+                x++;
+            }
+        }
+        
+        return retMatrix;
+    }
+    
+    public double det2x2(double[][] matrix) {
+        return (matrix[0][0] * matrix[1][1]) - (matrix[1][0] * matrix[0][1]);
     }
     
     /**
@@ -122,13 +164,13 @@ public class Matrix {
      */
     public Matrix inverse() {
         try {
-            int det = this.determinant();
+            double det = this.determinant();
             
             if (det == 0) {
                 return null;
             }
             
-            double[][] matrix = this.multiply((1 / (double) det)).getValues();
+            double[][] matrix = this.multiply((1 / det)).getValues();
         
             for (int i = 0; i < matrix.length; i++) {
                 for (int a = 0; a < matrix[0].length; a++) {
