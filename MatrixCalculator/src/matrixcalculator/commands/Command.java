@@ -1,7 +1,7 @@
 package matrixcalculator.commands;
 
 public interface Command {
-    public void run();
+    public boolean run();
     
     public String getDescription();
 }

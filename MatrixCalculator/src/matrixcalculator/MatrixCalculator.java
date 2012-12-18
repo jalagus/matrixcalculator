@@ -4,7 +4,7 @@ public class MatrixCalculator {
 
     public static void main(String[] args) {
         UI ui = new UI();
-        
+        /*
         double[][] matA = {{1,4,4}};
         double[][] matB = {{1},{2},{3}};
         
@@ -35,6 +35,8 @@ public class MatrixCalculator {
         System.out.println(A.multiply(B));
         System.out.println(C.multiply(C));
         //System.out.println(B.multiply(A));
-        //ui.start(); */
+        */
+        
+        ui.start();
     }
 }

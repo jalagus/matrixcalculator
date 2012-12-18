@@ -214,9 +214,16 @@ public class Matrix {
     /**
      * Laskee matriisin redusoidun porrasmuodon
      *
-     * @return Matrix-olion, jossa matriisi on redusoidussa porramuodossa
+     * @return Matrix-olio, jossa matriisi on redusoidussa porramuodossa
      */
     public Matrix rref() {
+        
+        double[][] row = this.getValues();
+        
+        for (int i = 0; i < row.length; i++) {
+            double[][] temp = new double[1][row[i].length];
+        }
+        
         return null;
     }
     
