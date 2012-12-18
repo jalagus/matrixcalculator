@@ -1,14 +1,23 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package matrixcalculator.commands;
 
 import java.util.Map;
 import java.util.Scanner;
 import matrixcalculator.Matrix;
 
-public class MatrixAddition implements Command {
+/**
+ *
+ * @author jalagus
+ */
+public class MultiplyMatrixWithMatrix implements Command {
+    
     private Map<String, Matrix> matrices;
     private Scanner scn;
     
-    public MatrixAddition(Map<String, Matrix> matrices, Scanner scn) {
+    public MultiplyMatrixWithMatrix(Map<String, Matrix> matrices, Scanner scn) {
         this.matrices = matrices;
         this.scn = scn;
     }
@@ -30,10 +39,10 @@ public class MatrixAddition implements Command {
         Matrix A = matrices.get(identA);
         Matrix B = matrices.get(identB);
         
-        Matrix C = A.add(B);
+        Matrix C = A.multiply(B);
         
         if (C == null) {
-            System.out.println("Yhteenlasku ei määritelty");
+            System.out.println("Kertolasku ei määritelty");
         }
         else {
             System.out.println(C);
@@ -44,6 +53,6 @@ public class MatrixAddition implements Command {
     
     @Override
     public String getDescription() {
-        return "Laske kaksi matriisia yhteen";
+        return "Kerro matriisia matriisilla";
     }  
 }

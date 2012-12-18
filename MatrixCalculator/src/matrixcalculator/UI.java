@@ -25,15 +25,19 @@ public class UI {
         commands.put("2", new LoadMatricesFromFile(matrices, scn));
         commands.put("3", new PrintMatrices(matrices));
         commands.put("4", new MatrixAddition(matrices, scn));
-        commands.put("5", helpCmd);
+        commands.put("5", new MatrixDeterminant(matrices, scn));
+        commands.put("6", new MatrixInverse(matrices, scn));
+        commands.put("7", new MatrixTranspose(matrices, scn));
+        commands.put("8", new MultiplyMatrixWithCoefficent(matrices, scn));
+        commands.put("9", new MultiplyMatrixWithMatrix(matrices, scn));
+        commands.put("h", helpCmd);
         
         commands.put("q", new EndProgram());
     }
     
     public void start() {
-        System.out.println("Matriisilaskin v0.1");
-        System.out.println("---");
-       
+        System.out.println("MATRIISILASKIN\n");
+
         helpCmd.run();
         
         boolean running = true;
@@ -43,7 +47,9 @@ public class UI {
             String command = scn.nextLine();
             
             if (commands.containsKey(command)) {
+                System.out.println("");
                 running = commands.get(command).run();
+                System.out.println("");
             }
             else {
                 System.out.println("Tuntematon komento");
