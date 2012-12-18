@@ -33,7 +33,7 @@ public class AddMatrix implements Command {
             System.out.print("Rivi " + (i + 1) + ": ");
             String row = scn.nextLine();
             
-            String[] splitRow = row.split(" ", width);
+            String[] splitRow = row.split("[,\\s]+", width);
             
             for (int a = 0; a < width; a++) {
                 matrix[i][a] = Double.parseDouble(splitRow[a]);
