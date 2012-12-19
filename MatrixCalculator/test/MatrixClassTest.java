@@ -16,24 +16,8 @@ import static org.junit.Assert.*;
  * @author jalagus
  */
 public class MatrixClassTest {
-    
+
     public MatrixClassTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test
@@ -81,6 +65,17 @@ public class MatrixClassTest {
     }
 
     @Test
+    public void vaaranKokoisiaMatriisejaEiLasketaYhteen() {
+        double[][] matA = {{1, 2}, {2, 4}};
+        double[][] matB = {{2, 1, 5}, {2, 4, 5}};
+
+        Matrix A = new Matrix(matA);
+        Matrix B = new Matrix(matB);
+
+        assertEquals(null, A.add(B));
+    }
+
+    @Test
     public void matriisinKertolaskuKertoimenKanssaPalauttaaOikein() {
         double[][] matA = {{1, 2}, {2, 4}};
         double[][] matB = {{3, 6}, {6, 12}};
@@ -114,23 +109,23 @@ public class MatrixClassTest {
         } catch (Exception ex) {
         }
     }
-    
+
     @Test
     public void matriisin4x4DeterminanttiLasketaanOikein() {
-        double[][] matA = {{2,3,1,4},{4,3,1,6},{6,2,4,3},{6,5,1,7}};
+        double[][] matA = {{2, 3, 1, 4}, {4, 3, 1, 6}, {6, 2, 4, 3}, {6, 5, 1, 7}};
 
         Matrix A = new Matrix(matA);
-        
+
         try {
             assertEquals(A.determinant(), 64, 2);
         } catch (Exception ex) {
         }
-    }    
-    
-    @Test(expected=IllegalArgumentException.class)
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void matriisinDeterminanttiAntaaVirheenVaaranKokoisellaTaululla() {
         double[][] matA = {{1, 4, 5}, {1, 2, 2}};
-        
+
         Matrix A = new Matrix(matA);
         A.determinant();
     }
@@ -148,13 +143,13 @@ public class MatrixClassTest {
 
     @Test
     public void matriisinKaanteismatriisiPalauttaaTyhjanJosDeterminanttiOnNolla() {
-        double[][] matA = {{2,2},{2,2}};
+        double[][] matA = {{2, 2}, {2, 2}};
 
         Matrix A = new Matrix(matA);
 
         assertEquals(null, A.inverse());
     }
-    
+
     @Test
     public void matriisinTranspoosiToimiiOikein() {
         double[][] matA = {{1, 2, 3}, {4, 5, 6}};
