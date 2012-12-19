@@ -248,14 +248,18 @@ public class Matrix {
         for (int i = row.length - 1; i > 0; i--) {
             int leadingIndex = findLeadingIndex(row, i);
             
-            for (int a = 0; a < i; a++) {
-                double multiplier = row[a][leadingIndex] / row[i][leadingIndex];
-                
-                for (int k = findLeadingIndex(row, a); k < row[a].length; k++) {
-                    row[a][k] -= multiplier * row[i][k];
+            if (leadingIndex != -1) {
+                for (int a = 0; a < i; a++) {
+                    double multiplier = row[a][leadingIndex] / row[i][leadingIndex];
+
+                    int firstIndex = findLeadingIndex(row, a);
+                    if (firstIndex != -1) { 
+                        for (int k = firstIndex; k < row[a].length; k++) {
+                            row[a][k] -= multiplier * row[i][k];
+                        }
+                    }
                 }
             }
-            
         }
         
         return new Matrix(row);
