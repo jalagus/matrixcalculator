@@ -210,16 +210,18 @@ public class Matrix {
     /**
      * Laskee matriisin redusoidun porrasmuodon
      *
-     * @return Matrix-olio, jossa matriisi on redusoidussa porramuodossa
+     * @return Matrix-olio, jossa matriisi redusoidussa porramuodossa
      */
     public Matrix rref() {
-
         double[][] row = this.getValues();
-
-        int lead = 0;
         
         for (int i = 0; i < row.length - 1; i++) {
             row = sortRows(row);
+            int lead = findLeadingIndex(row, i);
+            
+            if (lead == -1) {
+                continue;
+            }
             
             for (int a = i; a < row.length; a++) {
                 double num = row[a][lead];
@@ -239,50 +241,38 @@ public class Matrix {
                 }
             }
 
-            
-            lead++;
         }
 
+        row = fixRrefTable(row);
         
         for (int i = row.length - 1; i > 0; i--) {
             int leadingIndex = findLeadingIndex(row, i);
             
-            if (leadingIndex > -1) {
-                row[i][leadingIndex] = 1;
-                for (int a = 0; a < i; a++) {
-                    row[a][leadingIndex] = 0;
-                }
-            }
-        }
-        
-        return new Matrix(fixRrefTable(row));
-    }
-    
-    private int findLeadingIndex(double[][] rows, int a) {
-        int index = -1;
-        
-        for (int i = 0; i < rows[a].length; i++) {
-            if (rows[a][i] != 0) {
-                if (index != -1) {
-                    return -1;
-                }
-                else {
-                    index = i;
+            for (int a = 0; a < i; a++) {
+                double multiplier = row[a][leadingIndex] / row[i][leadingIndex];
+                
+                for (int k = findLeadingIndex(row, a); k < row[a].length; k++) {
+                    row[a][k] -= multiplier * row[i][k];
                 }
             }
             
         }
         
-        return index;
+        return new Matrix(row);
+    }
+    
+    private int findLeadingIndex(double[][] rows, int a) {        
+        for (int i = 0; i < rows[a].length; i++) {
+            if (rows[a][i] != 0) {
+                return i;
+            } 
+        }
+        
+        return -1;
     }
     
     private double[][] fixRrefTable(double[][] rows) {
         for (int i = 0; i < rows.length; i++) {
-            for (int a = 0; a < rows[i].length; a++) {
-                if (rows[i][a] == -0) {
-                    rows[i][a] = 0;
-                }
-            }
             double multiplier = -1;
             for (int a = 0; a < rows[i].length; a++) {
                 if (rows[i][a] != 0) {
@@ -293,6 +283,12 @@ public class Matrix {
             
             for (int a = 0; a < rows[i].length; a++) {
                 rows[i][a] *= (1 / multiplier);
+            }
+            
+            for (int a = 0; a < rows[i].length; a++) {
+                if (rows[i][a] == -0) {
+                    rows[i][a] = 0;
+                }
             }
         }
                 

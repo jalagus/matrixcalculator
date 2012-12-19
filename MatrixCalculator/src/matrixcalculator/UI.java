@@ -30,6 +30,8 @@ public class UI {
         commands.put("7", new MatrixTranspose(matrices, scn));
         commands.put("8", new MultiplyMatrixWithCoefficent(matrices, scn));
         commands.put("9", new MultiplyMatrixWithMatrix(matrices, scn));
+        commands.put("0", new MatrixRREF(matrices, scn));
+        
         commands.put("h", helpCmd);
         
         commands.put("q", new EndProgram());
