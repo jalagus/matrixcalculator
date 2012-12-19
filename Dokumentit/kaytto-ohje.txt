@@ -1,0 +1,5 @@
+Käyttöohje:
+Ohjelma ajetaan komentoriviltä suorittamalla MatrixCalculator.jar 
+projektin dist-hakemistosta. Ohjelmalle ei anneta mitään parametrejä.
+
+Ohjelma sisältää tekstikäyttöliittymän, jonka kautta komennot suoritetaan.
