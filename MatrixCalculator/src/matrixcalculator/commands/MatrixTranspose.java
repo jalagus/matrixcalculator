@@ -13,15 +13,15 @@ import matrixcalculator.Matrix;
  * @author jalagus
  */
 public class MatrixTranspose implements Command {
-    
+
     private Map<String, Matrix> matrices;
     private Scanner scn;
-    
+
     public MatrixTranspose(Map<String, Matrix> matrices, Scanner scn) {
         this.matrices = matrices;
         this.scn = scn;
     }
-    
+
     @Override
     public boolean run() {
         System.out.print("Tunniste: ");
@@ -30,12 +30,12 @@ public class MatrixTranspose implements Command {
         if (matrices.containsKey(ident)) {
             System.out.println(matrices.get(ident).transpose());
         }
-        
+
         return true;
     }
-    
+
     @Override
     public String getDescription() {
         return "Laske matriisin transpoosi";
-    }  
+    }
 }

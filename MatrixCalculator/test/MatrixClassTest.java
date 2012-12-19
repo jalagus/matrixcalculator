@@ -204,4 +204,19 @@ public class MatrixClassTest {
 
         assertEquals(B, A.rref());
     }
+    
+    @Test
+    public void tulostaaMatriisinOikein() {
+        double[][] matA = {{1, 2, 0}, {0, 2, 1}, {-1, 2, 1}};
+        
+        Matrix A = new Matrix(matA);
+        
+        String output = 
+                "|  1.0   2.0   0.0  |\n" +
+                "|  0.0   2.0   1.0  |\n" +
+                "| -1.0   2.0   1.0  |\n";
+        
+        assertEquals(output, A.toString());
+        
+    }
 }

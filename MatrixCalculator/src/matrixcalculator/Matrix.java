@@ -214,25 +214,25 @@ public class Matrix {
      */
     public Matrix rref() {
         double[][] row = this.getValues();
-        
+
         for (int i = 0; i < row.length - 1; i++) {
             row = sortRows(row);
             int lead = findLeadingIndex(row, i);
-            
+
             if (lead == -1) {
                 continue;
             }
-            
+
             for (int a = i; a < row.length; a++) {
                 double num = row[a][lead];
-                
+
                 for (int k = 0; k < row[a].length; k++) {
                     if (num != 0) {
                         row[a][k] *= (1 / num);
                     }
                 }
             }
-            
+
             for (int a = i + 1; a < row.length; a++) {
                 if (row[a][lead] != 0) {
                     for (int k = 0; k < row[a].length; k++) {
@@ -244,16 +244,16 @@ public class Matrix {
         }
 
         row = fixRrefTable(row);
-        
+
         for (int i = row.length - 1; i > 0; i--) {
             int leadingIndex = findLeadingIndex(row, i);
-            
+
             if (leadingIndex != -1) {
                 for (int a = 0; a < i; a++) {
                     double multiplier = row[a][leadingIndex] / row[i][leadingIndex];
 
                     int firstIndex = findLeadingIndex(row, a);
-                    if (firstIndex != -1) { 
+                    if (firstIndex != -1) {
                         for (int k = firstIndex; k < row[a].length; k++) {
                             row[a][k] -= multiplier * row[i][k];
                         }
@@ -261,20 +261,20 @@ public class Matrix {
                 }
             }
         }
-        
-        return new Matrix(row);
+
+        return new Matrix(sortRows(row));
     }
-    
-    private int findLeadingIndex(double[][] rows, int a) {        
+
+    private int findLeadingIndex(double[][] rows, int a) {
         for (int i = 0; i < rows[a].length; i++) {
             if (rows[a][i] != 0) {
                 return i;
-            } 
+            }
         }
-        
+
         return -1;
     }
-    
+
     private double[][] fixRrefTable(double[][] rows) {
         for (int i = 0; i < rows.length; i++) {
             double multiplier = -1;
@@ -284,24 +284,24 @@ public class Matrix {
                     break;
                 }
             }
-            
+
             for (int a = 0; a < rows[i].length; a++) {
                 rows[i][a] *= (1 / multiplier);
             }
-            
+
             for (int a = 0; a < rows[i].length; a++) {
                 if (rows[i][a] == -0) {
                     rows[i][a] = 0;
                 }
             }
         }
-                
+
         return rows;
     }
-    
+
     private double[][] sortRows(double[][] rows) {
         int[] leadingCol = new int[rows.length];
-        
+
         for (int i = 0; i < rows.length; i++) {
             for (int a = 0; a < rows[0].length; a++) {
                 if (rows[i][a] != 0) {
@@ -310,11 +310,11 @@ public class Matrix {
                 }
             }
         }
-        
+
         int x = 0;
-        
+
         double[][] retRows = new double[rows.length][rows[0].length];
-        
+
         for (int i = 0; i < leadingCol.length; i++) {
             for (int a = 0; a < rows.length; a++) {
                 if (leadingCol[a] == i) {
@@ -322,10 +322,9 @@ public class Matrix {
                 }
             }
         }
-        
+
         return retRows;
     }
-    
 
     /**
      * Palauttaa matriisin ominaisarvot

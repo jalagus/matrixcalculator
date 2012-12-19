@@ -22,10 +22,10 @@ public class LoadMatricesFromFile implements Command {
     public boolean run() {
         System.out.print("Tiedostonimi: ");
         String filename = scn.nextLine();
-        
+
         int matrixCount = 0;
         int failCount = 0;
-        
+
         try {
             FileInputStream fstream = new FileInputStream(filename);
 
@@ -36,8 +36,7 @@ public class LoadMatricesFromFile implements Command {
             while ((strLine = br.readLine()) != null) {
                 if (parseMatrix(strLine)) {
                     matrixCount++;
-                }
-                else {
+                } else {
                     failCount++;
                 }
             }
@@ -51,26 +50,26 @@ public class LoadMatricesFromFile implements Command {
         if (failCount > 0) {
             System.out.println("Hylättiin " + failCount + " matriisia");
         }
-        
-        
+
+
         return true;
     }
-    
+
     private boolean parseMatrix(String row) {
-        
+
         String[] temp = row.split("=", 2);
-        
+
         String ident = temp[0].trim();
-        
+
         String temp2 = temp[1].trim();
         temp2 = temp2.substring(1, temp2.length() - 1);
-        
+
         int rowCount = temp2.split("\\{").length - 1;
-        
+
         String[] rows = new String[rowCount];
-        
+
         int a = 0;
-        
+
         for (int i = 0; i < temp2.length(); i++) {
             if (temp2.charAt(i) == '{') {
                 i++;
@@ -82,28 +81,28 @@ public class LoadMatricesFromFile implements Command {
                 a++;
             }
         }
-        
-                
+
+
         double[][] matrix = new double[rowCount][0];
-        
+
         int firstRowCount = rows[0].split(",").length;
-        
+
         for (int i = 0; i < rowCount; i++) {
             String[] temp3 = rows[i].split(",");
-            
+
             if (temp3.length != firstRowCount) {
                 return false;
             }
-            
+
             matrix[i] = new double[temp3.length];
-            
+
             for (int b = 0; b < temp3.length; b++) {
                 matrix[i][b] = Double.parseDouble(temp3[b]);
             }
         }
-        
+
         matrices.put(ident, new Matrix(matrix));
-        
+
         return true;
     }
 

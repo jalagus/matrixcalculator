@@ -5,12 +5,13 @@ import java.util.Map.Entry;
 import matrixcalculator.Matrix;
 
 public class PrintMatrices implements Command {
+
     private Map<String, Matrix> matrices;
-    
+
     public PrintMatrices(Map<String, Matrix> matrices) {
         this.matrices = matrices;
     }
-    
+
     @Override
     public boolean run() {
         for (Entry<String, Matrix> mat : matrices.entrySet()) {
@@ -19,9 +20,9 @@ public class PrintMatrices implements Command {
         }
         return true;
     }
-    
+
     @Override
     public String getDescription() {
         return "Tulostaa tallennetut matriisit";
-    }    
+    }
 }
