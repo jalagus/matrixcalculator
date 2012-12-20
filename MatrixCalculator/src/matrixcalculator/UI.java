@@ -9,12 +9,13 @@ import matrixcalculator.commands.*;
 
 public class UI {
 
-    Scanner scn = new Scanner(System.in);
+    Scanner scn;
     private Map<String, Matrix> matrices = new HashMap<String, Matrix>();
     private Map<String, Command> commands = new TreeMap<String, Command>();
     private Command helpCmd;
 
-    public UI() {
+    public UI(Scanner scn) {
+        this.scn = scn;
         this.registerCommands();
     }
 

@@ -11,4 +11,4 @@ TUNNISTE = {{#, #, #},{#, #, #},{#, #, #}}
 Esim.
 A = {{1, 2},{2, 3}}
 
-Jokaisen matriisin tulee olla oikeassa muodossa ja yhdellä rivillä tai se hylätään. Ohjelma ilmoittaa ladatessa monta matriisia ladattiin ja jos joitain hylättiin, niiden määrän.
+Jokaisen matriisin tulee olla oikeassa muodossa ja yhdellä rivillä tai se hylätään. Ohjelma ilmoittaa ladattujen matriisien määrän.

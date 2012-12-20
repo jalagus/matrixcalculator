@@ -116,7 +116,8 @@ public class Matrix {
 
     private double detHelper(double mat[][]) {
         if (mat.length == 2 && mat[0].length == 2) {
-            return det2x2(mat);
+            // 2x2 determinantti
+            return (mat[0][0] * mat[1][1]) - (mat[1][0] * mat[0][1]);
         }
 
         double sum = 0;
@@ -149,10 +150,6 @@ public class Matrix {
         }
 
         return retMatrix;
-    }
-
-    private double det2x2(double[][] matrix) {
-        return (matrix[0][0] * matrix[1][1]) - (matrix[1][0] * matrix[0][1]);
     }
 
     /**
@@ -215,35 +212,30 @@ public class Matrix {
     public Matrix rref() {
         double[][] row = this.getValues();
 
-        for (int i = 0; i < row.length - 1; i++) {
+        for (int i = 0; i < row.length; i++) {
             row = sortRows(row);
             int lead = findLeadingIndex(row, i);
-
+            double leadingMultiplier = (1 / row[i][lead]);
+            
             if (lead == -1) {
                 continue;
             }
-
-            for (int a = i; a < row.length; a++) {
-                double num = row[a][lead];
-
-                for (int k = 0; k < row[a].length; k++) {
-                    if (num != 0) {
-                        row[a][k] *= (1 / num);
-                    }
-                }
+            
+            // Kerrotaan arvoja siten, että johtoalkio on 1
+            for (int a = lead; a < row[i].length; a++) {
+                row[i][a] *= leadingMultiplier;
             }
 
             for (int a = i + 1; a < row.length; a++) {
-                if (row[a][lead] != 0) {
-                    for (int k = 0; k < row[a].length; k++) {
-                        row[a][k] -= row[i][k];
-                    }
+                int secLead = findLeadingIndex(row, a);
+                
+                double rowMultiplier = row[a][secLead] / row[i][lead];
+
+                for (int k = secLead; k < row[a].length; k++) {
+                    row[a][k] -= row[i][k] * rowMultiplier;
                 }
             }
-
         }
-
-        row = fixRrefTable(row);
 
         for (int i = row.length - 1; i > 0; i--) {
             int leadingIndex = findLeadingIndex(row, i);
@@ -273,30 +265,6 @@ public class Matrix {
         }
 
         return -1;
-    }
-
-    private double[][] fixRrefTable(double[][] rows) {
-        for (int i = 0; i < rows.length; i++) {
-            double multiplier = -1;
-            for (int a = 0; a < rows[i].length; a++) {
-                if (rows[i][a] != 0) {
-                    multiplier = rows[i][a];
-                    break;
-                }
-            }
-
-            for (int a = 0; a < rows[i].length; a++) {
-                rows[i][a] *= (1 / multiplier);
-            }
-
-            for (int a = 0; a < rows[i].length; a++) {
-                if (rows[i][a] == -0) {
-                    rows[i][a] = 0;
-                }
-            }
-        }
-
-        return rows;
     }
 
     private double[][] sortRows(double[][] rows) {
@@ -350,7 +318,15 @@ public class Matrix {
      * @return
      */
     public double[][] getValues() {
-        return values;
+        double[][] retValues = new double[this.values.length][this.values[0].length];
+
+        for (int i = 0; i < retValues.length; i++) {
+            for (int a = 0; a < retValues[0].length; a++) {
+                retValues[i][a] = this.values[i][a];
+            }
+        }
+
+        return retValues;
     }
 
     private boolean checkDimensions(Matrix m1, Matrix m2) {

@@ -1,15 +1,15 @@
 Viikkoraportti 2
 
-Mitä opin tällä viikolla?
+** Mitä opin tällä viikolla?
 Taulukkojen oikeiden arvojen testaaminen on melko hankalaa ja matriiseille on vaikea keksiä hyviä testejä.
 
 Käyttöliittymää suunnitellessa sain omasta mielestä hyvä ratkaisun toteutukselle, joka on helposti laajennettavissa ja muokattavissa.
 
-Mikä jäi epäselväksi? 
-Epäselväksi jäi miten tähän voisi rakentaa käyttöliittymän, joka olisi suhteellisen helposti laajennettavissa ilman kovakoodausta. Komennot on kyllä helppo erottaa käyttoliittymästä, mutta niille parametrien antaminen ja arvojen palauttaminen ei oikein toimi järkevästi.
+** Mikä jäi epäselväksi? 
+Epäselväksi jäi ominaisarvojen ja -vektoreiden tehokas laskutapa. Isoissa matriiseissa laskutoimituksista tulee todella raskaista, koska matriisin koko on suoraan suhteessa laskun vaativuuteen.
 
-Miten ohjelma on edistynyt?
-Jokainen metodi on lisätty koodirunkoon ja jokaiseen metodiin on tehty vähintään yksi testitapaus. Myös käyttöliittymä on lähes valmis.
+** Miten ohjelma on edistynyt?
+Jokainen metodi, ominaisarvojen ja -vektoreiden on lisätty koodirunkoon ja sisältää toimivaa koodia ja jokaiseen metodiin on tehty vähintään yksi testitapaus. Myös tekstikäyttöliittymä on jotakuinkin valmis.
 
-Mitä teen seuraavaksi?
-Seuraavaksi keskity optimoimaan determinantin laskemista ja kehittämään ominaisarvoille, sekä ominaisvektoreille jotain laskutapaa.
+** Mitä teen seuraavaksi?
+Seuraavaksi keskityn optimoimaan determinantin ja redusoidun porrasmuodon laskemista, sekä selvittelemään jotain tehokasta tapaa laskea ominaisarvoja ja -vektoreita.

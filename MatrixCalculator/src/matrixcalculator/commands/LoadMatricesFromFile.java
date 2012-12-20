@@ -26,14 +26,19 @@ public class LoadMatricesFromFile implements Command {
         int matrixCount = 0;
         int failCount = 0;
 
+        
+        int errorLine = 0;
+        
         try {
-            FileInputStream fstream = new FileInputStream(filename);
+            //FileInputStream fstream = new FileInputStream(filename);
+            FileInputStream fstream = new FileInputStream("/Users/jalagus/mat.txt");
 
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
 
             while ((strLine = br.readLine()) != null) {
+                errorLine++;
                 if (parseMatrix(strLine)) {
                     matrixCount++;
                 } else {
@@ -43,7 +48,7 @@ public class LoadMatricesFromFile implements Command {
 
             in.close();
         } catch (Exception e) {
-            System.err.println("Virhe: " + e.getMessage());
+            System.err.println("Virhe rivillä " + errorLine + ": " + e.getMessage());
         }
 
         System.out.println("Ladattiin " + matrixCount + " matriisia");
