@@ -1,0 +1,16 @@
+Testausraportti
+
+** Tehdyt testit
+Ohjelmaan on tehty kattavat JUnit testit, joiden rivikattavuus on tarkastettu ohjelmallisesti siten, että se on lähes 100%. Osaa riveistä ei voida testata näillä testeillä, koska se vaatisi virheellisen syötteen syntymistä paikassa, jossa sen pitäisi olla mahdotonta.
+
+Osa testeistä on tehty ennen varsinaisen metodin toteutusta, eli ns. TDD-menetelmällä.
+
+Testit testaavat kokonaisuudessaan Matrix-luokan.
+
+** Minkälaisilla syötteillä testaus tehtiin
+JUnit testit on suoritettu melko pienillä syötteillä. Jokaisessa kohdassa on testattu erilaisilla matriiseilla, jotta testeihin ei olisi vahingossa sattunut sellainen matriisi, joka palauttaa sattumalta oikeita tuloksia, vaikka testit olisivat väärin.
+
+** Miten testit voidaan toistaa
+JUnit testit voidaan ajaa NetBeansin kautta avaamalla projektin NetBeansiin ja valitsemalla ylävalikosta: Run -> Test Project
+
+** Ohjelman toiminnan empiirisen testauksen tulosten esittäminen graafisessa muodossa.
