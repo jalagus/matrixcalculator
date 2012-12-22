@@ -17,7 +17,7 @@ public class Matrix {
     /**
      * Muodostaa matriisin annetun kaksiulotteisen double-taulukon pohjalta
      *
-     * @param matrix
+     * @param matrix joka sisältää matriisin arvot
      */
     public Matrix(double[][] matrix) {
         this.m = matrix.length;
@@ -101,12 +101,33 @@ public class Matrix {
     }
 
     /**
-     * Laskee matriisin determinantin
+     * Laskee matriisin determinantin LU-hajotelman avulla. Vastaus ei ole täysin luotettava
+     * 
+     * @return double-muuttuja, jossa matriisin determinantti
+     */
+    public double determinant() {
+        if (this.m != this.n) {
+            throw new IllegalArgumentException();
+        }
+        
+        double[][] decomposition = this.decompose().getValues();
+        
+        double sum = 1;
+        
+        for (int i = 0; i < decomposition.length; i++) {
+            sum *= decomposition[i][i];
+        }
+        
+        return sum;
+    }
+    
+    /**
+     * Laskee matriisin determinantin rekursiivisesti
      *
      * @return double-muuttuja, jossa matriisin determinantti
      * @throws Exception
      */
-    public double determinant() {
+    public double recursiveDeterminant() {
         if (this.m != this.n) {
             throw new IllegalArgumentException();
         }
@@ -342,6 +363,10 @@ public class Matrix {
      * @return Matrix-olio, jossa LU-hajotettu matriisi yhtenä matriisina
      */
     public Matrix decompose() {
+        if (this.m != this.n) {
+            return null;
+        }
+        
         double[][] A = this.getValues();
                 
         int n = A.length;
@@ -366,6 +391,11 @@ public class Matrix {
                     sum += A[j][k] * A[k][i];
                 }
                 
+                // Vältetään nollalla jakaminen
+                if (A[i][i] == 0) {
+                    return null;
+                }
+                
                 A[j][i] = (A[j][i] - sum) / A[i][i];
             }            
         }
@@ -374,6 +404,10 @@ public class Matrix {
     }    
     
     
+    /**
+     * Laskee matriisin LU-hajotelman yläkolmiomatriisin
+     * @return Matrix-olio, jossa yläkolmiomatriisi
+     */
     public Matrix LU_UpperTriangle() {
         double[][] U = this.decompose().getValues();
         
@@ -387,6 +421,11 @@ public class Matrix {
         
         return new Matrix(U);
     }
+    
+    /**
+     * Laskee matriisin LU-hajotelman alakolmiomatriisin
+     * @return Matrix-olio, jossa alakolmiomatriisi
+     */
     public Matrix LU_LowerTriangle() {
         double[][] L = this.decompose().getValues();
         
