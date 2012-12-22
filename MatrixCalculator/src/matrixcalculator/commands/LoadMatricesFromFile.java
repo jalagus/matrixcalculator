@@ -30,8 +30,7 @@ public class LoadMatricesFromFile implements Command {
         int errorLine = 0;
         
         try {
-            //FileInputStream fstream = new FileInputStream(filename);
-            FileInputStream fstream = new FileInputStream("/Users/jalagus/mat.txt");
+            FileInputStream fstream = new FileInputStream(filename);
 
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));

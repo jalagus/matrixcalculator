@@ -103,7 +103,7 @@ public class Matrix {
     /**
      * Laskee matriisin determinantin
      *
-     * @return Matriisin determinantti double-tyyppisenä
+     * @return double-muuttuja, jossa matriisin determinantti
      * @throws Exception
      */
     public double determinant() {
@@ -188,7 +188,7 @@ public class Matrix {
     }
 
     /**
-     * Palauttaa matriisin transpoosin
+     * Laskee matriisin transpoosin
      *
      * @return Matrix-olio, jossa matriisin transpoosi
      */
@@ -216,11 +216,11 @@ public class Matrix {
             row = sortRows(row);
             int lead = findLeadingIndex(row, i);
             double leadingMultiplier = (1 / row[i][lead]);
-            
+
             if (lead == -1) {
                 continue;
             }
-            
+
             // Kerrotaan arvoja siten, että johtoalkio on 1
             for (int a = lead; a < row[i].length; a++) {
                 row[i][a] *= leadingMultiplier;
@@ -228,7 +228,7 @@ public class Matrix {
 
             for (int a = i + 1; a < row.length; a++) {
                 int secLead = findLeadingIndex(row, a);
-                
+
                 double rowMultiplier = row[a][secLead] / row[i][lead];
 
                 for (int k = secLead; k < row[a].length; k++) {
@@ -295,7 +295,7 @@ public class Matrix {
     }
 
     /**
-     * Palauttaa matriisin ominaisarvot
+     * Laskee matriisin ominaisarvot
      *
      * @return
      */
@@ -304,7 +304,7 @@ public class Matrix {
     }
 
     /**
-     * Palauttaa matriisin ominaisvektorit
+     * Laskee matriisin ominaisvektorit
      *
      * @return
      */
@@ -338,6 +338,53 @@ public class Matrix {
     }
 
     /**
+     * Tekee LU-hajoituksen matriisille käyttäen Doolittlen algoritmia
+     * @return Matrix-olio, jossa LU-hajotettu matriisi yhtenä matriisina
+     */
+    public Matrix decompose() {
+        double[][] a = this.getValues();
+        double[][] u = new double[this.m][this.n];
+        double[][] l = new double[this.m][this.n];
+                
+        int n = this.m;
+        
+        // Laske ylä- ja alakolmiomatriisit
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                u[i][j] = a[i][j];
+                
+                for (int k = 0; k < i; k++) {
+                    u[i][j] -= l[i][k] * u[k][j];
+                }
+            }
+            for (int j = i + 1; j < n; j++) {
+                l[j][i] = a[j][i];
+                
+                for (int k = 0; k < i; k++) {
+                    l[j][i] -= l[j][k] * u[k][i];
+                }
+                
+                l[j][i] /= u[i][i];
+            }            
+        }
+        
+        // Yhdistä ylä- ja alakolmiomatriisit alkuperäiseen
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (u[i][j] != 0) {
+                    a[i][j] = u[i][j];
+                }
+                else {
+                    a[i][j] = l[i][j];
+                }
+            }
+        }
+               
+        return new Matrix(a);
+    }    
+        
+    
+    /**
      * Palauttaa matriisin tulostusmuodossa
      *
      * @return
@@ -362,6 +409,7 @@ public class Matrix {
 
         return ret;
     }
+
 
     @Override
     public int hashCode() {
