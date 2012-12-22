@@ -342,48 +342,69 @@ public class Matrix {
      * @return Matrix-olio, jossa LU-hajotettu matriisi yhtenä matriisina
      */
     public Matrix decompose() {
-        double[][] a = this.getValues();
-        double[][] u = new double[this.m][this.n];
-        double[][] l = new double[this.m][this.n];
+        double[][] A = this.getValues();
                 
-        int n = this.m;
+        int n = A.length;
         
-        // Laske ylä- ja alakolmiomatriisit
+        double sum = 0;
+        
+        // Laske ylä- ja alakolmiomatriisit alkuperäiseen taulukkoon
         for (int i = 0; i < n; i++) {
             for (int j = i; j < n; j++) {
-                u[i][j] = a[i][j];
+                sum = 0;
                 
                 for (int k = 0; k < i; k++) {
-                    u[i][j] -= l[i][k] * u[k][j];
+                    sum += A[i][k] * A[k][j];
                 }
+                
+                A[i][j] -= sum;
             }
             for (int j = i + 1; j < n; j++) {
-                l[j][i] = a[j][i];
+                sum = 0;
                 
                 for (int k = 0; k < i; k++) {
-                    l[j][i] -= l[j][k] * u[k][i];
+                    sum += A[j][k] * A[k][i];
                 }
                 
-                l[j][i] /= u[i][i];
+                A[j][i] = (A[j][i] - sum) / A[i][i];
             }            
         }
+               
+        return new Matrix(A);
+    }    
+    
+    
+    public Matrix LU_UpperTriangle() {
+        double[][] U = this.decompose().getValues();
         
-        // Yhdistä ylä- ja alakolmiomatriisit alkuperäiseen
+        int n = U.length;
+        
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                U[i][j] = 0;
+            }
+        }
+        
+        return new Matrix(U);
+    }
+    public Matrix LU_LowerTriangle() {
+        double[][] L = this.decompose().getValues();
+        
+        int n = L.length;
+        
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (u[i][j] != 0) {
-                    a[i][j] = u[i][j];
+            for (int j = i; j < n; j++) {
+                if (i == j) {
+                    L[i][j] = 1;
                 }
                 else {
-                    a[i][j] = l[i][j];
+                    L[i][j] = 0;
                 }
             }
         }
-               
-        return new Matrix(a);
-    }    
         
-    
+        return new Matrix(L);        
+    }    
     /**
      * Palauttaa matriisin tulostusmuodossa
      *
