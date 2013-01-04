@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package matrixcalculator.logic;
 
-/**
- *
- * @author jalagus
- */
 public class MatrixLUDecomposition extends Matrix {
     
     public MatrixLUDecomposition(double[][] matrix) {
@@ -15,7 +7,7 @@ public class MatrixLUDecomposition extends Matrix {
     }
     
     /**
-     * Tekee LU-hajoituksen matriisille käyttäen Doolittlen algoritmia ja 
+     * Laskee LU-hajoituksen matriisille käyttäen Doolittlen algoritmia ja 
      * palauttaa tuloksen Matrix-tyypin oliona. Tätä käytetään mm. determinantin
      * laskennassa.
      * 

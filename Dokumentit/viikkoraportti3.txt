@@ -3,6 +3,8 @@ Viikkoraportti 3
 ** Mitä opin tällä viikolla?
 Hyvien ja kattavien testien tekeminen on melko haastavaa. Vaikka ns. rivikattavuus olisikin lähes täydellinen, niin silti testeistä jää tunne, ettei tiettyjä erityistapauksia tule testattua.
 
+Tuli myös kerrattua hieman oliosuunnittelun perusperiaatteita, jotka olivat jonkin verran päässeet unohtumaan. Näistä ehkä eniten Single responsibility -periaatetta
+
 ** Mikä jäi epäselväksi? 
 Epäselväksi jäi ominaisarvojen ja -vektoreiden tehokas laskutapa. Isoissa matriiseissa laskutoimituksista tulee todella raskaista, koska matriisin koko on suoraan suhteessa laskun vaativuuteen.
 

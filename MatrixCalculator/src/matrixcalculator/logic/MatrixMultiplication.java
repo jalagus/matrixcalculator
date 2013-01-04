@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package matrixcalculator.logic;
 
-/**
- *
- * @author jalagus
- */
 public class MatrixMultiplication extends Matrix {
     
     public MatrixMultiplication(double[][] matrix) {
@@ -34,7 +26,7 @@ public class MatrixMultiplication extends Matrix {
 
         for (int i = 0; i < retMatrix.length; i++) {
             for (int a = 0; a < retMatrix[0].length; a++) {
-                retMatrix[i][a] = matrixPosSum(a, i, this.getValues(), matrix);
+                retMatrix[i][a] = rowColumnMultiplicationSum(a, i, this.getValues(), matrix);
             }
         }
 
@@ -43,7 +35,7 @@ public class MatrixMultiplication extends Matrix {
 
     // Matriisikertolaskun apumetodi, joka laskee yhden rivin ja yhden 
     // sarakkeen kertolaskut ja palauttaa sen
-    private double matrixPosSum(int col, int row, double[][] mat1, double[][] mat2) {
+    private double rowColumnMultiplicationSum(int col, int row, double[][] mat1, double[][] mat2) {
         double sum = 0;
 
         for (int i = 0; i < mat2.length; i++) {

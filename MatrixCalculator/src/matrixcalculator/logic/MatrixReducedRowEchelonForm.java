@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package matrixcalculator.logic;
 
-/**
- *
- * @author jalagus
- */
 public class MatrixReducedRowEchelonForm extends Matrix {
     
     public MatrixReducedRowEchelonForm(double[][] matrix) {
@@ -22,32 +14,35 @@ public class MatrixReducedRowEchelonForm extends Matrix {
     public Matrix rref() {
         double[][] row = this.getValues();
 
+        // Muodostetaan ensin yläkolmiomatriisi
         for (int i = 0; i < row.length; i++) {
             row = sortRowsByLeadingIndex(row);
-            int lead = findLeadingIndex(row, i);
-            double leadingMultiplier = (1 / row[i][lead]);
-
-            if (lead == -1) {
+            
+            int leadingIndex = findLeadingIndex(row, i);
+            if (leadingIndex == -1) {
                 continue;
             }
+            
+            double leadingMultiplier = (1 / row[i][leadingIndex]);
 
             // Kerrotaan arvoja siten, että johtoalkio on 1
-            for (int a = lead; a < row[i].length; a++) {
+            for (int a = leadingIndex; a < row[i].length; a++) {
                 row[i][a] *= leadingMultiplier;
             }
-            row[i][lead] = 1;
+            row[i][leadingIndex] = 1;
 
             for (int a = i + 1; a < row.length; a++) {
                 int secLead = findLeadingIndex(row, a);
 
-                double rowMultiplier = row[a][secLead] / row[i][lead];
+                double rowMultiplier = row[a][secLead] / row[i][leadingIndex];
 
                 for (int k = secLead; k < row[a].length; k++) {
                     row[a][k] -= row[i][k] * rowMultiplier;
                 }
             }
         }
-
+        
+        // Yritetään nollat kaikki mahdolliset arvot yläkolmiomatriisista
         for (int i = row.length - 1; i > 0; i--) {
             int leadingIndex = findLeadingIndex(row, i);
 
@@ -85,19 +80,16 @@ public class MatrixReducedRowEchelonForm extends Matrix {
     private double[][] sortRowsByLeadingIndex(double[][] rows) {
         int[] leadingCol = new int[rows.length];
 
+        // Etsitään jokaisen rivin johtava alkio
         for (int i = 0; i < rows.length; i++) {
-            for (int a = 0; a < rows[0].length; a++) {
-                if (rows[i][a] != 0) {
-                    leadingCol[i] = a;
-                    break;
-                }
-            }
+            leadingCol[i] = findLeadingIndex(rows, i);
         }
 
         int x = 0;
 
         double[][] retRows = new double[rows.length][rows[0].length];
 
+        // Järjestetään rivit johtavien alkioiden paikan perusteella
         for (int i = 0; i < leadingCol.length; i++) {
             for (int a = 0; a < rows.length; a++) {
                 if (leadingCol[a] == i) {

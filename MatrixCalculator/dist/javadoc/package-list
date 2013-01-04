@@ -1,3 +1,4 @@
-matrixcalculator
-matrixcalculator.commands
+matrixcalculator.UI
+matrixcalculator.UI.commands
+matrixcalculator.logic
 matrixcalculator.performancetests

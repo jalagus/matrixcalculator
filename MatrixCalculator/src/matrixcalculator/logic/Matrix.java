@@ -1,7 +1,7 @@
 package matrixcalculator.logic;
 
 import java.util.Arrays;
-import matrixcalculator.Utils;
+import matrixcalculator.UI.Utils;
 
 public class Matrix {
 

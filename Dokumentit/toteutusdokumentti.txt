@@ -3,15 +3,18 @@ Toteutusdokumentti
 ** Ohjelman yleisrakenne
 Ohjelma rakentuu pääasiassa kahdesta osasta, käyttöliittymästä ja sovelluslogiikasta.
 
-Varsinainen toiminnallisuus on rakennettu Matrix-luokkaan, joka sisältää kaikki toteutetut laskutoimitukset. Tämä luokka voitaisiin halutessaan irrottaa projektista toisiin projekteihin ja lisätä sen avulla matriisilaskutoimitukset myös muihin projekteihin.
+Varsinainen toiminnallisuus on rakennettu Matrix-alkuisiin luokkiin, jotka sisältävät kaikki toteutetut laskutoimitukset. Kaikki nämä perivät Matrix-luokan. Nämät luokat voitaisiin halutessaan irrottaa projektista toisiin projekteihin ja lisätä niiden avulla matriisilaskutoimitukset myös muihin projekteihin.
 
 Käyttöliittymä on jaettu useampaan luokkaan ja varsinainen komentojen toteutus on tehty luomalla Command-interface, jonka kaikki käskyt toteuttavat. Tällä tavalla käyttöliittymä on helposti muokattavissa ja toimintoja voidaan lisätä helposti tarvittaessa.
 
 ** Saavutetut aika- ja tilavaativuudet
 
 			Aikavaativuus	Tilavaativuus
-Yhteenlasku	  	O(n^2)		O(n)
+Yhteenlasku	  	O(n)		O(n)
+Transpoosi		O(n)		O(n)
+Käänteismatriisi	O(n^3)		O(n)
 Kertolasku		O(n^3)		O(n)
+LU-hajotelma		O(n^3)		O(n)
 Determinantti		O(n^3)		O(n)
 Redusoitu porrasmuoto	O(n^3)		O(n)
 

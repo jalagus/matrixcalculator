@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package matrixcalculator.performancetests;
 
 import java.io.BufferedReader;
@@ -9,30 +5,104 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import matrixcalculator.logic.Matrix;
+import matrixcalculator.logic.MatrixAddition;
 import matrixcalculator.logic.MatrixDeterminant;
+import matrixcalculator.logic.MatrixMultiplication;
+import matrixcalculator.logic.MatrixReducedRowEchelonForm;
 
-/**
- *
- * @author jalagus
- */
 public class PerformanceTests {
     public static void main(String[] args) {
-        TestDeterminant();
+        testAddition();
+        System.out.println("");
+        testMultiplication();
+        System.out.println("");
+        testRREF();
+        System.out.println("");
+        testDeterminant();
     }
     
-    public static void TestDeterminant() {
-        Matrix A = lataaMatriisiTiedostosta("../Dokumentit/Testfiles/100x100.txt");   
-        MatrixDeterminant DetTest = new MatrixDeterminant(A.getValues());
+    public static void testDeterminant() {
+        Matrix A = loadMatrixFromFile("../Dokumentit/Testfiles/100x100.txt");   
+        MatrixDeterminant DetM = new MatrixDeterminant(A.getValues());
+        
+        System.out.println("Starting determinant test...");
+        
+        int loops = 10000;
+        long startTime = System.currentTimeMillis();
         
         
-        System.out.println("Starting test...");
-        for (int i = 0; i < 10000; i++) {
-            double det = DetTest.determinant();
+        for (int i = 0; i < loops; i++) {
+            DetM.determinant();
         }        
-        System.out.println("Finished in: ");
+        
+        long endTime = System.currentTimeMillis();
+        
+        System.out.println("Finished " + loops + " testcases in " + (endTime - startTime) + " ms");
+        System.out.println("Average per case is: " + ((endTime - startTime) / loops) + " ms");  
+    }
+
+    public static void testAddition() {
+        Matrix A = loadMatrixFromFile("../Dokumentit/Testfiles/100x100.txt");   
+        
+        MatrixAddition AddM = new MatrixAddition(A.getValues());
+        
+        System.out.println("Starting addition test...");
+        
+        int loops = 10000;
+        long startTime = System.currentTimeMillis();
+        
+        
+        for (int i = 0; i < loops; i++) {
+            AddM.add(A);
+        }        
+        
+        long endTime = System.currentTimeMillis();
+        
+        System.out.println("Finished " + loops + " testcases in " + (endTime - startTime) + " ms");
+        System.out.println("Average per case is: " + ((endTime - startTime) / loops) + " ms");  
     }
     
-    public static Matrix lataaMatriisiTiedostosta(String filename) {
+     public static void testMultiplication() {
+        Matrix A = loadMatrixFromFile("../Dokumentit/Testfiles/100x100.txt");   
+        MatrixMultiplication DetTest = new MatrixMultiplication(A.getValues());
+        
+        System.out.println("Starting multiplication test...");
+        
+        int loops = 10;
+        long startTime = System.currentTimeMillis();
+        
+        
+        for (int i = 0; i < loops; i++) {
+            DetTest.multiply(A);
+        }        
+        
+        long endTime = System.currentTimeMillis();
+        
+        System.out.println("Finished " + loops + " testcases in " + (endTime - startTime) + " ms");
+        System.out.println("Average per case is: " + ((endTime - startTime) / loops) + " ms");  
+    }
+     
+    public static void testRREF() {
+        Matrix A = loadMatrixFromFile("../Dokumentit/Testfiles/100x100.txt");   
+        MatrixReducedRowEchelonForm DetTest = new MatrixReducedRowEchelonForm(A.getValues());
+        
+        System.out.println("Starting RREF test...");
+        
+        int loops = 1000;
+        long startTime = System.currentTimeMillis();
+        
+        
+        for (int i = 0; i < loops; i++) {
+            DetTest.rref();
+        }        
+        
+        long endTime = System.currentTimeMillis();
+        
+        System.out.println("Finished " + loops + " testcases in " + (endTime - startTime) + " ms");
+        System.out.println("Average per case is: " + ((endTime - startTime) / loops) + " ms");  
+    }
+    
+    public static Matrix loadMatrixFromFile(String filename) {
         
         int matrixSize = 0;
         

@@ -13,7 +13,13 @@ public class MatrixAddition extends Matrix {
     public MatrixAddition(double[][] matrix) {
         super(matrix);
     }
-
+    
+    /**
+     * Laske kaksi matriisia yhteen
+     *
+     * @param mat matriisi jonka kanssa yhteenlasku suoritetaan
+     * @return Matrix-olion, jossa on yhteenlaskun tulos
+     */
     public Matrix add(Matrix mat) {
         if (this.m != mat.m || this.n != mat.n) {
             return null;
