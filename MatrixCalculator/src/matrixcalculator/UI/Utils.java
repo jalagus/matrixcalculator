@@ -11,4 +11,20 @@ public class Utils {
     public static String padRight(String s, int n) {
         return String.format("%1$-" + n + "s", s);
     }
+    
+    public static double round(double number, int places) {
+        
+        for (int i = 0; i < places; i++) {
+            number *= 10;
+        }
+        
+        number = Math.round(number);
+        
+        for (int i = 0; i < places; i++) {
+            number /= 10;
+        }        
+        
+        
+        return number;
+    }
 }

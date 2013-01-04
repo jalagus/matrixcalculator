@@ -1,3 +1,5 @@
+package matrixcalculator.logic;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -161,6 +163,17 @@ public class MatrixClassTest {
 
         assertEquals(B, A.inverse());
     }
+    
+    @Test
+    public void suurempiMatriisinKaanteismatriisiPalauttaaOikein() {
+        double[][] matA = {{1, 4, 5}, {3, 2, 3}, {7, 3, 3}};
+        double[][] matB = {{-0.15, 0.15, 0.1}, {0.6, -1.6, 0.6}, {-0.25, 1.25, -0.5}};
+
+        MatrixInverse A = new MatrixInverse(matA);
+        Matrix B = new Matrix(matB);
+
+        assertEquals(B, A.inverse());
+    }
 
     @Test
     public void matriisinKaanteismatriisiPalauttaaTyhjanJosDeterminanttiOnNolla() {
@@ -215,9 +228,9 @@ public class MatrixClassTest {
         Matrix A = new Matrix(matA);
         
         String output = 
-                "|  1.0   2.0   0.0  |\n" +
-                "|  0.0   2.0   1.0  |\n" +
-                "| -1.0   2.0   1.0  |\n";
+                "|  1.0    2.0    0.0   |\n" +
+                "|  0.0    2.0    1.0   |\n" +
+                "| -1.0    2.0    1.0   |\n";
         
         assertEquals(output, A.toString());
         

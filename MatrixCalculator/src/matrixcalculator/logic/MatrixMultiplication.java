@@ -21,16 +21,17 @@ public class MatrixMultiplication extends Matrix {
             return null;
         }
 
-        double[][] retMatrix = new double[this.m][mat.n];
-        double[][] matrix = mat.getValues();
+        double[][] resultMatrix = new double[this.m][mat.n];
+        double[][] matrixA = mat.getValues();
+        double[][] matrixB = this.getValues();
 
-        for (int i = 0; i < retMatrix.length; i++) {
-            for (int a = 0; a < retMatrix[0].length; a++) {
-                retMatrix[i][a] = rowColumnMultiplicationSum(a, i, this.getValues(), matrix);
+        for (int i = 0; i < resultMatrix.length; i++) {
+            for (int a = 0; a < resultMatrix[0].length; a++) {
+                resultMatrix[i][a] = rowColumnMultiplicationSum(a, i, matrixB, matrixA);
             }
         }
 
-        return new Matrix(retMatrix);
+        return new Matrix(resultMatrix);
     }
 
     // Matriisikertolaskun apumetodi, joka laskee yhden rivin ja yhden 

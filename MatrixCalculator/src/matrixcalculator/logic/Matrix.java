@@ -44,7 +44,8 @@ public class Matrix {
     }
    
     /**
-     * Palauttaa matriisin tulostusmuodossa String-tyypin oliona
+     * Palauttaa matriisin tulostusmuodossa String-tyypin oliona. 
+     * Luvut pyöristetään kahden desimaalin tarkkuuteen
      *
      * @return Matriisin tulostusmuoto
      */
@@ -52,15 +53,15 @@ public class Matrix {
     public String toString() {
         String ret = "";
 
-        int padding = 6;
+        int padding = 7;
 
         for (int i = 0; i < m; i++) {
             ret += "| ";
             for (int a = 0; a < n; a++) {
                 if (values[i][a] < 0) {
-                    ret += Utils.padRight(values[i][a] + "", padding);
+                    ret += Utils.padRight( Utils.round(values[i][a], padding - 2) + "", padding);
                 } else {
-                    ret += Utils.padRight(" " + values[i][a], padding);
+                    ret += Utils.padRight(" " + Utils.round(values[i][a], padding - 2), padding);
                 }
             }
             ret += "|\n";

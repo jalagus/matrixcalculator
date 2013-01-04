@@ -7,29 +7,37 @@ import java.io.InputStreamReader;
 import matrixcalculator.logic.Matrix;
 import matrixcalculator.logic.MatrixAddition;
 import matrixcalculator.logic.MatrixDeterminant;
+import matrixcalculator.logic.MatrixInverse;
 import matrixcalculator.logic.MatrixMultiplication;
 import matrixcalculator.logic.MatrixReducedRowEchelonForm;
 
 public class PerformanceTests {
     public static void main(String[] args) {
-        testAddition();
+        int testCases = 1000;
+        
+        testAddition(testCases, "../Dokumentit/Testfiles/100x100.txt");
         System.out.println("");
-        testMultiplication();
+        
+        testMultiplication(testCases, "../Dokumentit/Testfiles/100x100.txt");
         System.out.println("");
-        testRREF();
+        
+        testRREF(testCases, "../Dokumentit/Testfiles/100x100.txt");
         System.out.println("");
-        testDeterminant();
+        
+        testDeterminant(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        System.out.println("");
+        
+        testInversion(5, "../Dokumentit/Testfiles/100x100.txt");
     }
     
-    public static void testDeterminant() {
-        Matrix A = loadMatrixFromFile("../Dokumentit/Testfiles/100x100.txt");   
+    
+    public static void testDeterminant(int loops, String filename) {
+        Matrix A = loadMatrixFromFile(filename);   
         MatrixDeterminant DetM = new MatrixDeterminant(A.getValues());
         
         System.out.println("Starting determinant test...");
         
-        int loops = 10000;
         long startTime = System.currentTimeMillis();
-        
         
         for (int i = 0; i < loops; i++) {
             DetM.determinant();
@@ -41,16 +49,14 @@ public class PerformanceTests {
         System.out.println("Average per case is: " + ((endTime - startTime) / loops) + " ms");  
     }
 
-    public static void testAddition() {
-        Matrix A = loadMatrixFromFile("../Dokumentit/Testfiles/100x100.txt");   
+    public static void testAddition(int loops, String filename) {
+        Matrix A = loadMatrixFromFile(filename);   
         
         MatrixAddition AddM = new MatrixAddition(A.getValues());
         
         System.out.println("Starting addition test...");
         
-        int loops = 10000;
-        long startTime = System.currentTimeMillis();
-        
+        long startTime = System.currentTimeMillis();        
         
         for (int i = 0; i < loops; i++) {
             AddM.add(A);
@@ -62,15 +68,14 @@ public class PerformanceTests {
         System.out.println("Average per case is: " + ((endTime - startTime) / loops) + " ms");  
     }
     
-     public static void testMultiplication() {
-        Matrix A = loadMatrixFromFile("../Dokumentit/Testfiles/100x100.txt");   
+     public static void testMultiplication(int loops, String filename) {
+        Matrix A = loadMatrixFromFile(filename);   
+        
         MatrixMultiplication DetTest = new MatrixMultiplication(A.getValues());
         
         System.out.println("Starting multiplication test...");
         
-        int loops = 10;
         long startTime = System.currentTimeMillis();
-        
         
         for (int i = 0; i < loops; i++) {
             DetTest.multiply(A);
@@ -82,18 +87,37 @@ public class PerformanceTests {
         System.out.println("Average per case is: " + ((endTime - startTime) / loops) + " ms");  
     }
      
-    public static void testRREF() {
-        Matrix A = loadMatrixFromFile("../Dokumentit/Testfiles/100x100.txt");   
+    public static void testRREF(int loops, String filename) {
+        Matrix A = loadMatrixFromFile(filename);   
+
         MatrixReducedRowEchelonForm DetTest = new MatrixReducedRowEchelonForm(A.getValues());
         
         System.out.println("Starting RREF test...");
         
-        int loops = 1000;
         long startTime = System.currentTimeMillis();
         
         
         for (int i = 0; i < loops; i++) {
             DetTest.rref();
+        }        
+        
+        long endTime = System.currentTimeMillis();
+        
+        System.out.println("Finished " + loops + " testcases in " + (endTime - startTime) + " ms");
+        System.out.println("Average per case is: " + ((endTime - startTime) / loops) + " ms");  
+    }
+    
+    public static void testInversion(int loops, String filename) {
+        Matrix A = loadMatrixFromFile(filename);   
+
+        MatrixInverse inverseM = new MatrixInverse(A.getValues());
+        
+        System.out.println("Starting inverse test...");
+        
+        long startTime = System.currentTimeMillis();
+        
+        for (int i = 0; i < loops; i++) {
+            inverseM.inverse();
         }        
         
         long endTime = System.currentTimeMillis();
