@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package matrixcalculator.logic;
 
-/**
- *
- * @author jalagus
- */
 public class MatrixDeterminant extends Matrix {
     
     public MatrixDeterminant(double[][] matrix) {

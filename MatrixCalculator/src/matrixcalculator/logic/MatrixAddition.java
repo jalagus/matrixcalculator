@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package matrixcalculator.logic;
 
-/**
- *
- * @author jalagus
- */
 public class MatrixAddition extends Matrix {
     
     public MatrixAddition(double[][] matrix) {
@@ -15,7 +7,7 @@ public class MatrixAddition extends Matrix {
     }
     
     /**
-     * Laske kaksi matriisia yhteen
+     * Laskee kaksi matriisia yhteen ja palauttaa tuloksen Matrix-tyypin oliona.
      *
      * @param mat matriisi jonka kanssa yhteenlasku suoritetaan
      * @return Matrix-olion, jossa on yhteenlaskun tulos
