@@ -6,18 +6,19 @@ package matrixcalculator.commands;
 
 import java.util.Map;
 import java.util.Scanner;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
+import matrixcalculator.logic.MatrixTranspose;
 
 /**
  *
  * @author jalagus
  */
-public class MatrixDeterminant implements Command {
+public class MatrixTransposeCmd implements Command {
 
     private Map<String, Matrix> matrices;
     private Scanner scn;
 
-    public MatrixDeterminant(Map<String, Matrix> matrices, Scanner scn) {
+    public MatrixTransposeCmd(Map<String, Matrix> matrices, Scanner scn) {
         this.matrices = matrices;
         this.scn = scn;
     }
@@ -28,13 +29,16 @@ public class MatrixDeterminant implements Command {
         String ident = scn.nextLine();
 
         if (matrices.containsKey(ident)) {
-            System.out.println("Determinantti: " + matrices.get(ident).determinant());
+            Matrix transposeM = new MatrixTranspose(matrices.get(ident).getValues()).transpose();
+
+            System.out.println(transposeM);
         }
+
         return true;
     }
 
     @Override
     public String getDescription() {
-        return "Laske determinantti";
+        return "Laske matriisin transpoosi";
     }
 }

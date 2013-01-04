@@ -6,18 +6,19 @@ package matrixcalculator.commands;
 
 import java.util.Map;
 import java.util.Scanner;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
+import matrixcalculator.logic.MatrixMultiplication;
 
 /**
  *
  * @author jalagus
  */
-public class MatrixRREF implements Command {
+public class MultiplyMatrixWithCoefficentCmd implements Command {
 
     private Map<String, Matrix> matrices;
     private Scanner scn;
 
-    public MatrixRREF(Map<String, Matrix> matrices, Scanner scn) {
+    public MultiplyMatrixWithCoefficentCmd(Map<String, Matrix> matrices, Scanner scn) {
         this.matrices = matrices;
         this.scn = scn;
     }
@@ -27,14 +28,20 @@ public class MatrixRREF implements Command {
         System.out.print("Tunniste: ");
         String ident = scn.nextLine();
 
+        System.out.print("Kerroin: ");
+        double coefficent = Double.parseDouble(scn.nextLine());
+
         if (matrices.containsKey(ident)) {
-            System.out.println(matrices.get(ident).rref());
+            Matrix multiM = new MatrixMultiplication(matrices.get(ident).getValues()).multiply(coefficent);
+            
+            System.out.println(multiM);
         }
+
         return true;
     }
 
     @Override
     public String getDescription() {
-        return "Muunna redusoituun porrasmuotoon";
+        return "Kerro matriisia kertoimella";
     }
 }

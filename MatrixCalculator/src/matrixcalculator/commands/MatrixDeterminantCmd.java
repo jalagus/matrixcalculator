@@ -6,18 +6,19 @@ package matrixcalculator.commands;
 
 import java.util.Map;
 import java.util.Scanner;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
+import matrixcalculator.logic.MatrixDeterminant;
 
 /**
  *
  * @author jalagus
  */
-public class MultiplyMatrixWithCoefficent implements Command {
+public class MatrixDeterminantCmd implements Command {
 
     private Map<String, Matrix> matrices;
     private Scanner scn;
 
-    public MultiplyMatrixWithCoefficent(Map<String, Matrix> matrices, Scanner scn) {
+    public MatrixDeterminantCmd(Map<String, Matrix> matrices, Scanner scn) {
         this.matrices = matrices;
         this.scn = scn;
     }
@@ -27,18 +28,15 @@ public class MultiplyMatrixWithCoefficent implements Command {
         System.out.print("Tunniste: ");
         String ident = scn.nextLine();
 
-        System.out.print("Kerroin: ");
-        double coefficent = Double.parseDouble(scn.nextLine());
-
         if (matrices.containsKey(ident)) {
-            System.out.println(matrices.get(ident).multiply(coefficent));
+            double determinant = new MatrixDeterminant(matrices.get(ident).getValues()).determinant();
+            System.out.println("Determinantti: " + determinant);
         }
-
         return true;
     }
 
     @Override
     public String getDescription() {
-        return "Kerro matriisia kertoimella";
+        return "Laske determinantti";
     }
 }

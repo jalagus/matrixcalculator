@@ -6,18 +6,19 @@ package matrixcalculator.commands;
 
 import java.util.Map;
 import java.util.Scanner;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
+import matrixcalculator.logic.MatrixInverse;
 
 /**
  *
  * @author jalagus
  */
-public class MatrixTranspose implements Command {
+public class MatrixInverseCmd implements Command {
 
     private Map<String, Matrix> matrices;
     private Scanner scn;
 
-    public MatrixTranspose(Map<String, Matrix> matrices, Scanner scn) {
+    public MatrixInverseCmd(Map<String, Matrix> matrices, Scanner scn) {
         this.matrices = matrices;
         this.scn = scn;
     }
@@ -28,7 +29,9 @@ public class MatrixTranspose implements Command {
         String ident = scn.nextLine();
 
         if (matrices.containsKey(ident)) {
-            System.out.println(matrices.get(ident).transpose());
+            Matrix invM = new MatrixInverse(matrices.get(ident).getValues()).inverse();
+
+            System.out.println(invM);
         }
 
         return true;
@@ -36,6 +39,6 @@ public class MatrixTranspose implements Command {
 
     @Override
     public String getDescription() {
-        return "Laske matriisin transpoosi";
+        return "Laske käänteismatriisi";
     }
 }

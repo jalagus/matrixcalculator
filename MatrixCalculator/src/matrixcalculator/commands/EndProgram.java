@@ -1,7 +1,7 @@
 package matrixcalculator.commands;
 
 import java.util.Map;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
 
 public class EndProgram implements Command {
 

@@ -6,18 +6,19 @@ package matrixcalculator.commands;
 
 import java.util.Map;
 import java.util.Scanner;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
+import matrixcalculator.logic.MatrixMultiplication;
 
 /**
  *
  * @author jalagus
  */
-public class MultiplyMatrixWithMatrix implements Command {
+public class MultiplyMatrixWithMatrixCmd implements Command {
 
     private Map<String, Matrix> matrices;
     private Scanner scn;
 
-    public MultiplyMatrixWithMatrix(Map<String, Matrix> matrices, Scanner scn) {
+    public MultiplyMatrixWithMatrixCmd(Map<String, Matrix> matrices, Scanner scn) {
         this.matrices = matrices;
         this.scn = scn;
     }
@@ -39,8 +40,8 @@ public class MultiplyMatrixWithMatrix implements Command {
         Matrix A = matrices.get(identA);
         Matrix B = matrices.get(identB);
 
-        Matrix C = A.multiply(B);
-
+        Matrix C = new MatrixMultiplication(A.getValues()).multiply(B);
+                        
         if (C == null) {
             System.out.println("Kertolasku ei määritelty");
         } else {

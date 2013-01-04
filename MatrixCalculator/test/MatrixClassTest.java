@@ -3,11 +3,14 @@
  * and open the template in the editor.
  */
 
-import matrixcalculator.Matrix;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import matrixcalculator.logic.Matrix;
+import matrixcalculator.logic.MatrixAddition;
+import matrixcalculator.logic.MatrixDeterminant;
+import matrixcalculator.logic.MatrixInverse;
+import matrixcalculator.logic.MatrixLUDecomposition;
+import matrixcalculator.logic.MatrixMultiplication;
+import matrixcalculator.logic.MatrixReducedRowEchelonForm;
+import matrixcalculator.logic.MatrixTranspose;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -44,7 +47,7 @@ public class MatrixClassTest {
         double[][] matB = {{1, 2}, {2, 4}};
         double[][] matC = {{2, 4}, {4, 8}};
 
-        Matrix A = new Matrix(matA);
+        MatrixAddition A = new MatrixAddition(matA);
         Matrix B = new Matrix(matB);
         Matrix C = new Matrix(matC);
 
@@ -55,13 +58,18 @@ public class MatrixClassTest {
     public void useanMatriisinYhteenlaskuPalauttaaOikein() {
         double[][] matA = {{1, 2}, {2, 4}};
         double[][] matB = {{2, 1}, {2, 4}};
-        double[][] matC = {{4, 5}, {6, 12}};
+        
+        double[][] result = {{4, 5}, {6, 12}};
 
-        Matrix A = new Matrix(matA);
         Matrix B = new Matrix(matB);
-        Matrix C = new Matrix(matC);
+        
+        Matrix A = new MatrixAddition(matA).add(B);
+        
+        Matrix C = new MatrixAddition(matA).add(A);
+        
+        Matrix D = new Matrix(result);
 
-        assertEquals(C, A.add(B).add(A));
+        assertEquals(D, C);
     }
 
     @Test
@@ -69,7 +77,7 @@ public class MatrixClassTest {
         double[][] matA = {{1, 2}, {2, 4}};
         double[][] matB = {{2, 1, 5}, {2, 4, 5}};
 
-        Matrix A = new Matrix(matA);
+        MatrixAddition A = new MatrixAddition(matA);
         Matrix B = new Matrix(matB);
 
         assertEquals(null, A.add(B));
@@ -80,7 +88,7 @@ public class MatrixClassTest {
         double[][] matA = {{1, 2}, {2, 4}};
         double[][] matB = {{3, 6}, {6, 12}};
 
-        Matrix A = new Matrix(matA);
+        MatrixMultiplication A = new MatrixMultiplication(matA);
         Matrix B = new Matrix(matB);
 
         assertEquals(B, A.multiply(3));
@@ -92,7 +100,7 @@ public class MatrixClassTest {
         double[][] matB = {{1, 2}, {6, 1}};
         double[][] matC = {{25, 6}, {13, 4}};
 
-        Matrix A = new Matrix(matA);
+        MatrixMultiplication A = new MatrixMultiplication(matA);
         Matrix B = new Matrix(matB);
         Matrix C = new Matrix(matC);
 
@@ -103,7 +111,8 @@ public class MatrixClassTest {
     public void matriisin2x2DeterminanttiLasketaanOikein() {
         double[][] matA = {{1, 4}, {1, 2}};
 
-        Matrix A = new Matrix(matA);
+        MatrixDeterminant A = new MatrixDeterminant(matA);
+        
         try {
             assertEquals(A.determinant(), -2, 2);
         } catch (Exception ex) {
@@ -114,10 +123,22 @@ public class MatrixClassTest {
     public void matriisin4x4DeterminanttiLasketaanOikein() {
         double[][] matA = {{2, 3, 1, 4}, {4, 3, 1, 6}, {6, 2, 4, 3}, {6, 5, 1, 7}};
 
-        Matrix A = new Matrix(matA);
+        MatrixDeterminant A = new MatrixDeterminant(matA);
 
         try {
             assertEquals(A.determinant(), 64, 2);
+        } catch (Exception ex) {
+        }
+    }
+    
+    @Test
+    public void matriisin4x4DeterminanttiLasketaanOikeinRekursiivisellaFunktiolla() {
+        double[][] matA = {{2, 3, 1, 4}, {4, 3, 1, 6}, {6, 2, 4, 3}, {6, 5, 1, 7}};
+
+        MatrixDeterminant A = new MatrixDeterminant(matA);
+
+        try {
+            assertEquals(A.recursiveDeterminant(), 64, 2);
         } catch (Exception ex) {
         }
     }
@@ -126,7 +147,7 @@ public class MatrixClassTest {
     public void matriisinDeterminanttiAntaaVirheenVaaranKokoisellaTaululla() {
         double[][] matA = {{1, 4, 5}, {1, 2, 2}};
 
-        Matrix A = new Matrix(matA);
+        MatrixDeterminant A = new MatrixDeterminant(matA);
         A.determinant();
     }
 
@@ -135,7 +156,7 @@ public class MatrixClassTest {
         double[][] matA = {{2, 2}, {1, 2}};
         double[][] matB = {{1, -1}, {-0.5, 1}};
 
-        Matrix A = new Matrix(matA);
+        MatrixInverse A = new MatrixInverse(matA);
         Matrix B = new Matrix(matB);
 
         assertEquals(B, A.inverse());
@@ -145,31 +166,35 @@ public class MatrixClassTest {
     public void matriisinKaanteismatriisiPalauttaaTyhjanJosDeterminanttiOnNolla() {
         double[][] matA = {{2, 2}, {2, 2}};
 
-        Matrix A = new Matrix(matA);
+        MatrixInverse A = new MatrixInverse(matA);
 
         assertEquals(null, A.inverse());
     }
 
     @Test
-    public void matriisinTranspoosiToimiiOikein() {
+    public void matriisinTranspoosiLasketaanOikein() {
         double[][] matA = {{1, 2, 3}, {4, 5, 6}};
-        double[][] matB = {{1, 4}, {2, 5}, {3, 6}};
+        double[][] result = {{1, 4}, {2, 5}, {3, 6}};
 
-        Matrix A = new Matrix(matA);
-        Matrix B = new Matrix(matB);
+        Matrix A = new MatrixTranspose(matA).transpose();
+        
+        Matrix B = new Matrix(result);
 
-        assertEquals(B, A.transpose());
+        assertEquals(B, A);
 
-        assertEquals(A, A.transpose().transpose());
     }
 
     @Test
     public void transpoosinTranspoosiOnAlkuperainen() {
         double[][] matA = {{1, 2, 3}, {4, 5, 6}};
 
-        Matrix A = new Matrix(matA);
-
-        assertEquals(A, A.transpose().transpose());
+        Matrix resultMatrix = new Matrix(matA);
+        
+        Matrix A = new MatrixTranspose(matA).transpose();
+        
+        Matrix B = new MatrixTranspose(A.getValues()).transpose();
+        
+        assertEquals(resultMatrix, B);
     }
 
     @Test
@@ -177,32 +202,10 @@ public class MatrixClassTest {
         double[][] matA = {{1, 2, 0}, {0, 2, 1}, {1, 2, 1}};
         double[][] matB = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 
-        Matrix A = new Matrix(matA);
+        Matrix A = new MatrixReducedRowEchelonForm(matA).rref();
         Matrix B = new Matrix(matB);
 
-        assertEquals(B, A.rref());
-    }
-
-    @Test
-    public void palauttaaOikeatOminaisarvot() {
-        double[][] matA = {{1, 2, 0}, {0, 2, 1}, {1, 2, 1}};
-        double[][] matB = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-
-        Matrix A = new Matrix(matA);
-        Matrix B = new Matrix(matB);
-
-        assertEquals(B, A.rref());
-    }
-
-    @Test
-    public void palauttaaOikeatOminaisvektorit() {
-        double[][] matA = {{1, 2, 0}, {0, 2, 1}, {1, 2, 1}};
-        double[][] matB = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-
-        Matrix A = new Matrix(matA);
-        Matrix B = new Matrix(matB);
-
-        assertEquals(B, A.rref());
+        assertEquals(B, A);
     }
     
     @Test
@@ -219,4 +222,58 @@ public class MatrixClassTest {
         assertEquals(output, A.toString());
         
     }
+    
+    @Test
+    public void LUDecompositionHajottaaMatriisinOikein() {
+        double[][] matA = {{2,-1,-2},{-4,6,3},{-4,-2,8}};
+        double[][] matB = {{2,-1,-2},{-2,4,-1},{-2,-1,3}};
+
+        Matrix A = new MatrixLUDecomposition(matA).decompose();
+        Matrix B = new Matrix(matB);
+
+        assertEquals(B, A);
+    }
+    
+    @Test
+    public void LUDecompositionPalauttaaNullJosEiOleNelioMatriisi() {
+        double[][] matA = {{2,-1,-2},{-4,6,3},{-4,-2,8},{1,2,3}};
+
+        Matrix A = new MatrixLUDecomposition(matA).decompose();
+
+        assertEquals(null, A);
+    }
+    
+    @Test
+    public void YlakolmiomatriisinJaAlakolmiomatriisinYhteenlaskuOnAlkuperainenMatriisi() {
+        double[][] matA = {{2,-1,-2},{-4,6,3},{-4,-2,8}};
+
+        Matrix A = new Matrix(matA);
+        Matrix U = new MatrixLUDecomposition(matA).LU_UpperTriangle();
+        Matrix L = new MatrixLUDecomposition(matA).LU_LowerTriangle();
+        
+        MatrixMultiplication multiM = new MatrixMultiplication(L.getValues());
+
+        assertEquals(A, multiM.multiply(U));   
+    }
+    
+    @Test
+    public void equalsPalauttaaOikein() {
+        double[][] matA = {{2,-1,-2},{-4,6,3},{-4,-2,8}};
+        double[][] matB = {{2,-1,-2},{-4,6,3},{-4,-2,8}};
+        double[][] matC = {{2,-1,-2},{-4,9,3},{-4,-2,8}};
+
+        Matrix A = new Matrix(matA);
+        Matrix B = new Matrix(matB); 
+        Matrix C = new Matrix(matC); 
+        
+        // Kaksi samansisältöistä tunnistetaan samaksi
+        assertTrue(A.equals(B));
+        
+        // Kaksi eri sisältöistä tunnistetaan erilaisiksi
+        assertFalse(A.equals(C));
+        
+        // Eri tyyppinen olio tunnistetaan erilaiseksi
+        assertFalse(A.equals("Test"));
+    }
+    
 }

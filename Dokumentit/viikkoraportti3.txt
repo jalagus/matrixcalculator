@@ -1,0 +1,15 @@
+Viikkoraportti 3
+
+** Mitä opin tällä viikolla?
+Hyvien ja kattavien testien tekeminen on melko haastavaa. Vaikka ns. rivikattavuus olisikin lähes täydellinen, niin silti testeistä jää tunne, ettei tiettyjä erityistapauksia tule testattua.
+
+** Mikä jäi epäselväksi? 
+Epäselväksi jäi ominaisarvojen ja -vektoreiden tehokas laskutapa. Isoissa matriiseissa laskutoimituksista tulee todella raskaista, koska matriisin koko on suoraan suhteessa laskun vaativuuteen.
+
+** Miten ohjelma on edistynyt?
+Jokainen alunperin suunniteltu toiminto, lukuunottamatta ominaisarvojen ja -vektoreiden laskua, on lisätty projektiin ja refaktoroitu alustavasti siistimmäksi ja selkeämmäksi. Myös dokumentaatiota on parannettu ja JavaDocsin teko on lähes valmis.
+
+Koodin testauksen kattavuus on rivikattavuudeltaan lähes 100%, joitain periaatteessa mahdottomia testitilanteita lukuunottamatta.
+
+** Mitä teen seuraavaksi?
+Keskityn dokumentaation kirjoittamiseen ja viimeistellympään refaktorointiin. Yritän myös sisällyttää jonkin ominaisarvojen ja -vektoreiden laskutoimituksen ohjelmaan.

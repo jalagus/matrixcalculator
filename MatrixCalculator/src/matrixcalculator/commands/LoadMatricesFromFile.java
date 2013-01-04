@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.Scanner;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
 
 public class LoadMatricesFromFile implements Command {
 
@@ -25,7 +25,6 @@ public class LoadMatricesFromFile implements Command {
 
         int matrixCount = 0;
         int failCount = 0;
-
         
         int errorLine = 0;
         

@@ -1,5 +1,6 @@
 package matrixcalculator;
 
+import matrixcalculator.logic.Matrix;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -25,13 +26,13 @@ public class UI {
         commands.put("1", new AddMatrix(matrices, scn));
         commands.put("2", new LoadMatricesFromFile(matrices, scn));
         commands.put("3", new PrintMatrices(matrices));
-        commands.put("4", new MatrixAddition(matrices, scn));
-        commands.put("5", new MatrixDeterminant(matrices, scn));
-        commands.put("6", new MatrixInverse(matrices, scn));
-        commands.put("7", new MatrixTranspose(matrices, scn));
-        commands.put("8", new MultiplyMatrixWithCoefficent(matrices, scn));
-        commands.put("9", new MultiplyMatrixWithMatrix(matrices, scn));
-        commands.put("0", new MatrixRREF(matrices, scn));
+        commands.put("4", new MatrixAdditionCmd(matrices, scn));
+        commands.put("5", new MatrixDeterminantCmd(matrices, scn));
+        commands.put("6", new MatrixInverseCmd(matrices, scn));
+        commands.put("7", new MatrixTransposeCmd(matrices, scn));
+        commands.put("8", new MultiplyMatrixWithCoefficentCmd(matrices, scn));
+        commands.put("9", new MultiplyMatrixWithMatrixCmd(matrices, scn));
+        commands.put("0", new MatrixRREFCmd(matrices, scn));
 
         commands.put("h", helpCmd);
 

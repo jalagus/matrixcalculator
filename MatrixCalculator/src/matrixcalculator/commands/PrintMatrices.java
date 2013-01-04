@@ -2,7 +2,7 @@ package matrixcalculator.commands;
 
 import java.util.Map;
 import java.util.Map.Entry;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
 
 public class PrintMatrices implements Command {
 

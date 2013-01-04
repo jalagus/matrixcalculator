@@ -2,14 +2,15 @@ package matrixcalculator.commands;
 
 import java.util.Map;
 import java.util.Scanner;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
+import matrixcalculator.logic.MatrixAddition;
 
-public class MatrixAddition implements Command {
+public class MatrixAdditionCmd implements Command {
 
     private Map<String, Matrix> matrices;
     private Scanner scn;
 
-    public MatrixAddition(Map<String, Matrix> matrices, Scanner scn) {
+    public MatrixAdditionCmd(Map<String, Matrix> matrices, Scanner scn) {
         this.matrices = matrices;
         this.scn = scn;
     }
@@ -27,8 +28,9 @@ public class MatrixAddition implements Command {
         if (!matrices.containsKey(identB)) {
             System.out.println("Tuntematon matriisi");
         }
-
-        Matrix A = matrices.get(identA);
+        
+        MatrixAddition A = new MatrixAddition(matrices.get(identA).getValues());
+        
         Matrix B = matrices.get(identB);
 
         Matrix C = A.add(B);

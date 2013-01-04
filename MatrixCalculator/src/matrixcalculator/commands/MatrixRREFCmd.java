@@ -6,18 +6,19 @@ package matrixcalculator.commands;
 
 import java.util.Map;
 import java.util.Scanner;
-import matrixcalculator.Matrix;
+import matrixcalculator.logic.Matrix;
+import matrixcalculator.logic.MatrixReducedRowEchelonForm;
 
 /**
  *
  * @author jalagus
  */
-public class MatrixInverse implements Command {
+public class MatrixRREFCmd implements Command {
 
     private Map<String, Matrix> matrices;
     private Scanner scn;
 
-    public MatrixInverse(Map<String, Matrix> matrices, Scanner scn) {
+    public MatrixRREFCmd(Map<String, Matrix> matrices, Scanner scn) {
         this.matrices = matrices;
         this.scn = scn;
     }
@@ -28,14 +29,15 @@ public class MatrixInverse implements Command {
         String ident = scn.nextLine();
 
         if (matrices.containsKey(ident)) {
-            System.out.println(matrices.get(ident).inverse());
-        }
+            Matrix rrefM = new MatrixReducedRowEchelonForm(matrices.get(ident).getValues()).rref();
 
+            System.out.println(rrefM);
+        }
         return true;
     }
 
     @Override
     public String getDescription() {
-        return "Laske käänteismatriisi";
+        return "Muunna redusoituun porrasmuotoon";
     }
 }
