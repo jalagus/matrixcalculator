@@ -13,17 +13,17 @@ public class MatrixAddition extends Matrix {
      * @return Matrix-olion, jossa on yhteenlaskun tulos
      */
     public Matrix add(Matrix mat) {
-        if (this.m != mat.m || this.n != mat.n) {
+        if (this.rows != mat.rows || this.columns != mat.columns) {
             return null;
         }
 
-        double[][] retMatrix = new double[m][n];
+        double[][] retMatrix = new double[rows][columns];
         double[][] matB = mat.getValues();
         double[][] matA = this.getValues();
         
 
-        for (int i = 0; i < m; i++) {
-            for (int a = 0; a < n; a++) {
+        for (int i = 0; i < rows; i++) {
+            for (int a = 0; a < columns; a++) {
                 retMatrix[i][a] = matA[i][a] + matB[i][a];
             }
         }

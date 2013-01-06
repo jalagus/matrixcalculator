@@ -13,25 +13,20 @@ import matrixcalculator.logic.MatrixTranspose;
  *
  * @author jalagus
  */
-public class MatrixTransposeCmd implements Command {
+public class MatrixTransposeCmd extends MatrixReader implements Command {
 
-    private Map<String, Matrix> matrices;
-    private Scanner scn;
 
     public MatrixTransposeCmd(Map<String, Matrix> matrices, Scanner scn) {
-        this.matrices = matrices;
-        this.scn = scn;
+        super(matrices, scn);
     }
 
     @Override
     public boolean run() {
-        System.out.print("Tunniste: ");
-        String ident = scn.nextLine();
-
-        if (matrices.containsKey(ident)) {
-            Matrix transposeM = new MatrixTranspose(matrices.get(ident).getValues()).transpose();
-
+        try {
+            Matrix transposeM = new MatrixTranspose(getMatrixById().getValues()).transpose();
             System.out.println(transposeM);
+        } catch (Exception ex) {
+            System.out.println("Virhe: " + ex.getMessage());
         }
 
         return true;

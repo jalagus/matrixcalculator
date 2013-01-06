@@ -5,40 +5,30 @@ import java.util.Scanner;
 import matrixcalculator.logic.Matrix;
 import matrixcalculator.logic.MatrixAddition;
 
-public class MatrixAdditionCmd implements Command {
-
-    private Map<String, Matrix> matrices;
-    private Scanner scn;
-
+public class MatrixAdditionCmd extends MatrixReader implements Command {
     public MatrixAdditionCmd(Map<String, Matrix> matrices, Scanner scn) {
-        this.matrices = matrices;
-        this.scn = scn;
+        super(matrices, scn);
     }
 
     @Override
     public boolean run() {
-        System.out.print("Ensimmäisen matriisin tunniste: ");
-        String identA = scn.nextLine();
-        if (!matrices.containsKey(identA)) {
-            System.out.println("Tuntematon matriisi");
-        }
+        try {
+            System.out.print("1. matriisi - ");        
+            MatrixAddition A = new MatrixAddition(getMatrixById().getValues());
 
-        System.out.print("Toisen matriisin tunniste: ");
-        String identB = scn.nextLine();
-        if (!matrices.containsKey(identB)) {
-            System.out.println("Tuntematon matriisi");
-        }
+            System.out.print("2. matriisi - ");  
+            Matrix B = getMatrixById();
         
-        MatrixAddition A = new MatrixAddition(matrices.get(identA).getValues());
-        
-        Matrix B = matrices.get(identB);
+            Matrix C = A.add(B);
 
-        Matrix C = A.add(B);
-
-        if (C == null) {
-            System.out.println("Yhteenlasku ei määritelty");
-        } else {
-            System.out.println(C);
+            if (C == null) {
+                System.out.println("Yhteenlasku ei määritelty");
+            } else {
+                System.out.println(C);
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("Virhe: " + ex.getMessage());
         }
 
         return true;

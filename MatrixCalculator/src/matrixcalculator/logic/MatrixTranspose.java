@@ -12,11 +12,11 @@ public class MatrixTranspose extends Matrix {
      * @return Matrix-olio, jossa matriisin transpoosi
      */
     public Matrix transpose() {
-        double[][] retM = new double[this.n][this.m];
+        double[][] retM = new double[this.columns][this.rows];
         double[][] values = this.getValues();
         
-        for (int i = 0; i < this.m; i++) {
-            for (int a = 0; a < this.n; a++) {
+        for (int i = 0; i < this.rows; i++) {
+            for (int a = 0; a < this.columns; a++) {
                 retM[a][i] = values[i][a];
             }
         }

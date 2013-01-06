@@ -16,7 +16,7 @@ public class MatrixLUDecomposition extends Matrix {
      * @return Matrix-olio, jossa LU-hajotettu matriisi yhtenä matriisina
      */
     public Matrix decompose() {
-        if (this.m != this.n) {
+        if (this.rows != this.columns) {
             return null;
         }
         

@@ -8,11 +8,11 @@ public class Matrix {
     /**
      * Matriisin korkeus
      */
-    final public int m;
+    final public int rows;
     /**
      * Matriisin leveys
      */
-    final public int n;
+    final public int columns;
     final private double[][] values;
 
     /**
@@ -21,8 +21,8 @@ public class Matrix {
      * @param matrix kaksiulotteinen double-tyypin taulukko, joka sisältää matriisin arvot
      */
     public Matrix(double[][] matrix) {
-        this.m = matrix.length;
-        this.n = matrix[0].length;
+        this.rows = matrix.length;
+        this.columns = matrix[0].length;
         this.values = matrix;
     }
 
@@ -32,15 +32,15 @@ public class Matrix {
      * @return Kaksiulotteinen double-tyypin taulukko
      */
     public double[][] getValues() {
-        double[][] retValues = new double[this.values.length][this.values[0].length];
+        double[][] returnValues = new double[this.values.length][this.values[0].length];
 
-        for (int i = 0; i < retValues.length; i++) {
-            for (int a = 0; a < retValues[0].length; a++) {
-                retValues[i][a] = this.values[i][a];
+        for (int i = 0; i < returnValues.length; i++) {
+            for (int a = 0; a < returnValues[0].length; a++) {
+                returnValues[i][a] = this.values[i][a];
             }
         }
 
-        return retValues;
+        return returnValues;
     }
    
     /**
@@ -51,23 +51,23 @@ public class Matrix {
      */
     @Override
     public String toString() {
-        String ret = "";
+        String returnString = "";
 
-        int padding = 7;
+        int padding = 8;
 
-        for (int i = 0; i < m; i++) {
-            ret += "| ";
-            for (int a = 0; a < n; a++) {
+        for (int i = 0; i < rows; i++) {
+            returnString += "| ";
+            for (int a = 0; a < columns; a++) {
                 if (values[i][a] < 0) {
-                    ret += Utils.padRight( Utils.round(values[i][a], padding - 2) + "", padding);
+                    returnString += Utils.padRight( String.format("%.3f", values[i][a]), padding);
                 } else {
-                    ret += Utils.padRight(" " + Utils.round(values[i][a], padding - 2), padding);
+                    returnString += Utils.padRight(" " + String.format("%.3f", values[i][a]), padding);
                 }
             }
-            ret += "|\n";
+            returnString += "|\n";
         }
 
-        return ret;
+        return returnString;
     }
 
     @Override

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package matrixcalculator.UI.commands;
 
 import java.util.Map;
@@ -9,32 +5,27 @@ import java.util.Scanner;
 import matrixcalculator.logic.Matrix;
 import matrixcalculator.logic.MatrixMultiplication;
 
-/**
- *
- * @author jalagus
- */
-public class MultiplyMatrixWithCoefficentCmd implements Command {
-
-    private Map<String, Matrix> matrices;
-    private Scanner scn;
-
+public class MultiplyMatrixWithCoefficentCmd extends MatrixReader implements Command {    
+    
+    Scanner scn;
+    
     public MultiplyMatrixWithCoefficentCmd(Map<String, Matrix> matrices, Scanner scn) {
-        this.matrices = matrices;
+        super(matrices, scn);
+        
         this.scn = scn;
     }
 
     @Override
     public boolean run() {
-        System.out.print("Tunniste: ");
-        String ident = scn.nextLine();
-
-        System.out.print("Kerroin: ");
-        double coefficent = Double.parseDouble(scn.nextLine());
-
-        if (matrices.containsKey(ident)) {
-            Matrix multiM = new MatrixMultiplication(matrices.get(ident).getValues()).multiply(coefficent);
+        try {
+            MatrixMultiplication multiM = new MatrixMultiplication(getMatrixById().getValues());
             
-            System.out.println(multiM);
+            System.out.print("Kerroin: ");
+            double coefficent = Double.parseDouble(scn.nextLine());            
+            
+            System.out.println(multiM.multiply(coefficent));
+        } catch (Exception ex) {
+            System.out.println("Virhe: " + ex.getMessage());
         }
 
         return true;

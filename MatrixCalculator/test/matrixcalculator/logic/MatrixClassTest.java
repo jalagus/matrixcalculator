@@ -5,16 +5,8 @@ package matrixcalculator.logic;
  * and open the template in the editor.
  */
 
-import matrixcalculator.logic.Matrix;
-import matrixcalculator.logic.MatrixAddition;
-import matrixcalculator.logic.MatrixDeterminant;
-import matrixcalculator.logic.MatrixInverse;
-import matrixcalculator.logic.MatrixLUDecomposition;
-import matrixcalculator.logic.MatrixMultiplication;
-import matrixcalculator.logic.MatrixReducedRowEchelonForm;
-import matrixcalculator.logic.MatrixTranspose;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
@@ -31,8 +23,8 @@ public class MatrixClassTest {
 
         Matrix A = new Matrix(matA);
 
-        assertEquals(3, A.m);
-        assertEquals(2, A.n);
+        assertEquals(3, A.rows);
+        assertEquals(2, A.columns);
 
         double[][] testMatrix = A.getValues();
 
@@ -169,10 +161,10 @@ public class MatrixClassTest {
         double[][] matA = {{1, 4, 5}, {3, 2, 3}, {7, 3, 3}};
         double[][] matB = {{-0.15, 0.15, 0.1}, {0.6, -1.6, 0.6}, {-0.25, 1.25, -0.5}};
 
-        MatrixInverse A = new MatrixInverse(matA);
+        Matrix A = new MatrixInverse(matA).inverse();
         Matrix B = new Matrix(matB);
 
-        assertEquals(B, A.inverse());
+        assertEquals(B.toString(), A.toString());
     }
 
     @Test
@@ -228,9 +220,9 @@ public class MatrixClassTest {
         Matrix A = new Matrix(matA);
         
         String output = 
-                "|  1.0    2.0    0.0   |\n" +
-                "|  0.0    2.0    1.0   |\n" +
-                "| -1.0    2.0    1.0   |\n";
+                "|  1.000   2.000   0.000  |\n" +
+                "|  0.000   2.000   1.000  |\n" +
+                "| -1.000   2.000   1.000  |\n";
         
         assertEquals(output, A.toString());
         

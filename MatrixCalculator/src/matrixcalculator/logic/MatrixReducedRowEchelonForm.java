@@ -8,96 +8,53 @@ public class MatrixReducedRowEchelonForm extends Matrix {
     
     /**
      * Laskee matriisin redusoidun porrasmuodon ja palauttaa tuloksen Matrix-tyypin oliona.
+     * Laskennassa käytetään Gauss-Jordanin menetelmää.
      *
-     * @return Matrix-olio, jossa matriisi redusoidussa porramuodossa
-     */
+     * @return Matrix-olio, jossa matriisi redusoidussa porrasmuodossa
+     */    
     public Matrix rref() {
-        double[][] row = this.getValues();
-
-        // Muodostetaan ensin yläkolmiomatriisi
-        for (int i = 0; i < row.length; i++) {
-            row = sortRowsByLeadingIndex(row);
-            
-            int leadingIndex = findLeadingIndex(row, i);
-            if (leadingIndex == -1) {
-                continue;
-            }
-            
-            double leadingMultiplier = (1 / row[i][leadingIndex]);
-
-            // Kerrotaan arvoja siten, että johtoalkio on 1
-            for (int a = leadingIndex; a < row[i].length; a++) {
-                row[i][a] *= leadingMultiplier;
-            }
-            row[i][leadingIndex] = 1;
-
-            for (int a = i + 1; a < row.length; a++) {
-                int secLead = findLeadingIndex(row, a);
-
-                double rowMultiplier = row[a][secLead] / row[i][leadingIndex];
-
-                for (int k = secLead; k < row[a].length; k++) {
-                    row[a][k] -= row[i][k] * rowMultiplier;
-                }
-            }
-        }
+        MatrixGaussianEliminationUtils gaussianUtils = new MatrixGaussianEliminationUtils();
         
-        // Yritetään nollat kaikki mahdolliset arvot yläkolmiomatriisista
-        for (int i = row.length - 1; i > 0; i--) {
-            int leadingIndex = findLeadingIndex(row, i);
+        double[][] matrix = this.getValues();
 
-            if (leadingIndex != -1) {
-                for (int a = 0; a < i; a++) {
-                    double multiplier = row[a][leadingIndex] / row[i][leadingIndex];
+        int rowWithMaxPivotValue = 0;
 
-                    int firstIndex = findLeadingIndex(row, a);
-                    if (firstIndex != -1) {
-                        for (int k = firstIndex; k < row[a].length; k++) {
-                            row[a][k] -= multiplier * row[i][k];
-                        }
-                    }
+        for (int k = 0; k < matrix.length; k++) {
+            rowWithMaxPivotValue = k;
+
+            // Pivotoidaan suurimman alkion mukaan
+            for (int i = k; i < matrix.length; i++) {
+                if (matrix[i][k] > matrix[rowWithMaxPivotValue][k]) {
+                    rowWithMaxPivotValue = i;
                 }
             }
-        }
 
-        return new Matrix(sortRowsByLeadingIndex(row));
-    }
+            gaussianUtils.swapRows(matrix, k, rowWithMaxPivotValue);
 
-    // Apumetodi, joka etsii rivin johtavan alkion ja palauttaa -1
-    // mikäli rivillä ei ole johtavaa alkiota
-    private int findLeadingIndex(double[][] rows, int a) {
-        for (int i = 0; i < rows[a].length; i++) {
-            if (rows[a][i] != 0) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
-    // Apumetodi joka järjestää rivit siten, että ne tulevat laskevassa 
-    // järjestyksessä johtavan alkion paikan mukaan
-    private double[][] sortRowsByLeadingIndex(double[][] rows) {
-        int[] leadingCol = new int[rows.length];
-
-        // Etsitään jokaisen rivin johtava alkio
-        for (int i = 0; i < rows.length; i++) {
-            leadingCol[i] = findLeadingIndex(rows, i);
-        }
-
-        int x = 0;
-
-        double[][] retRows = new double[rows.length][rows[0].length];
-
-        // Järjestetään rivit johtavien alkioiden paikan perusteella
-        for (int i = 0; i < leadingCol.length; i++) {
-            for (int a = 0; a < rows.length; a++) {
-                if (leadingCol[a] == i) {
-                    retRows[x++] = rows[a];
+            // Muutetaan yläkolmiomuotoon
+            for (int i = k + 1; i < matrix.length; i++) {
+                for (int j = k + 1; j < matrix[k].length; j++) {
+                    matrix[i][j] = matrix[i][j] - matrix[k][j] * (matrix[i][k] / matrix[k][k]);
                 }
+                matrix[i][k] = 0;
             }
         }
 
-        return retRows;
-    }    
+        // Nollataan kaikki nollattavissa olevat arvot yläkolmiomatriisista
+        for (int k = matrix.length - 1; k >= 0; k--) {
+            int pivotIndex = gaussianUtils.findRowPivot(matrix[k]);
+
+            for (int i = 0; i < k; i++) {
+                double multiplier = matrix[i][pivotIndex] / matrix[k][pivotIndex];
+                gaussianUtils.substractRowWithMultiplier(matrix[k], matrix[i], multiplier);
+            }
+            double pivot = matrix[k][pivotIndex];
+
+            for (int i = pivotIndex; i < matrix[k].length; i++) {
+                matrix[k][i] /= pivot;
+            }
+        }
+
+        return new Matrix(matrix);
+    }
 }

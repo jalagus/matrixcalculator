@@ -13,18 +13,18 @@ public class MatrixDeterminant extends Matrix {
      * @return double-tyypin muuttuja, jossa matriisin determinantti
      */
     public double determinant() {
-        if (this.m != this.n) {
+        if (this.rows != this.columns) {
             throw new IllegalArgumentException();
         }
         
-        MatrixLUDecomposition decom = new MatrixLUDecomposition(this.getValues());
+        MatrixLUDecomposition LUdecomposition = new MatrixLUDecomposition(this.getValues());
         
-        double[][] decomposition = decom.decompose().getValues();
+        double[][] decomposedMatrix = LUdecomposition.decompose().getValues();
         
         double sum = 1;
         
-        for (int i = 0; i < decomposition.length; i++) {
-            sum *= decomposition[i][i];
+        for (int i = 0; i < decomposedMatrix.length; i++) {
+            sum *= decomposedMatrix[i][i];
         }
         
         return sum;
@@ -37,10 +37,10 @@ public class MatrixDeterminant extends Matrix {
      * 
      * @return double-tyypin muuttuja, jossa matriisin determinantti
      * 
-     * @throws Exception
+     * @throws Heittää IllegalArgumentException-poikkeuksen, jos matriisi ei ole neliömatriisi
      */
     public double recursiveDeterminant() {
-        if (this.m != this.n) {
+        if (this.rows != this.columns) {
             throw new IllegalArgumentException();
         }
 

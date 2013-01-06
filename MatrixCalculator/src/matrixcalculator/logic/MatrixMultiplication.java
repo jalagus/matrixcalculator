@@ -17,11 +17,11 @@ public class MatrixMultiplication extends Matrix {
      * @return      Matrix-olio, jossa on kertolaskun tulos
      */
     public Matrix multiply(Matrix mat) {
-        if (this.n != mat.m) {
+        if (this.columns != mat.rows) {
             return null;
         }
 
-        double[][] resultMatrix = new double[this.m][mat.n];
+        double[][] resultMatrix = new double[this.rows][mat.columns];
         double[][] matrixA = mat.getValues();
         double[][] matrixB = this.getValues();
 
@@ -55,11 +55,11 @@ public class MatrixMultiplication extends Matrix {
      * @return              Matrix-olio, jossa kertolaskun tulos
      */
     public Matrix multiply(double coefficent) {
-        double[][] matrix = new double[m][n];
+        double[][] matrix = new double[rows][columns];
         double[][] values = this.getValues();
         
-        for (int i = 0; i < m; i++) {
-            for (int a = 0; a < n; a++) {
+        for (int i = 0; i < rows; i++) {
+            for (int a = 0; a < columns; a++) {
                 matrix[i][a] = values[i][a] * coefficent;
             }
         }
