@@ -2,6 +2,12 @@ package matrixcalculator.logic;
 
 public class MatrixTranspose extends Matrix {
 
+    /**
+     * Luo uuden MatrixTranspose-olion, jolla voidaan laskea matriisin 
+     * transpoosi. Perii luokan Matrix.
+     *
+     * @param matrix matriisin arvot kaksiulotteisena double-taulukkona
+     */    
     public MatrixTranspose(double[][] matrix) {
         super(matrix);
     }    

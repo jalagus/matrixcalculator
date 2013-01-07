@@ -1,7 +1,13 @@
 package matrixcalculator.logic;
 
 public class MatrixReducedRowEchelonForm extends Matrix {
-    
+
+    /**
+     * Luo uuden MatrixReducedRowEchelonForm-olion, jolla voidaan laskea 
+     * matriisin redusoitu porrasmuoto. Perii luokan Matrix.
+     *
+     * @param matrix matriisin arvot kaksiulotteisena double-taulukkona
+     */    
     public MatrixReducedRowEchelonForm(double[][] matrix) {
         super(matrix);
     }

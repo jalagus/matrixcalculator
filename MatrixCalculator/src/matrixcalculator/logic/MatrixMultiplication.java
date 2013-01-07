@@ -1,7 +1,13 @@
 package matrixcalculator.logic;
 
 public class MatrixMultiplication extends Matrix {
-    
+
+    /**
+     * Luo uuden MatrixMultiplication-olion, jolla voidaan suorittaa matriisien 
+     * kertolaskuja. Perii luokan Matrix.
+     *
+     * @param matrix matriisin arvot kaksiulotteisena double-taulukkona
+     */
     public MatrixMultiplication(double[][] matrix) {
         super(matrix);
     }

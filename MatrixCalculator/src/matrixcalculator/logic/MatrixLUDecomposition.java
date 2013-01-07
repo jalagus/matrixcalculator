@@ -1,7 +1,13 @@
 package matrixcalculator.logic;
 
 public class MatrixLUDecomposition extends Matrix {
-    
+
+    /**
+     * Luo uuden MatrixLUDecomposition-olion, jolla voidaan suorittaa matriisin 
+     * LU-hajotus. Perii luokan Matrix.
+     *
+     * @param matrix matriisin arvot kaksiulotteisena double-taulukkona
+     */
     public MatrixLUDecomposition(double[][] matrix) {
         super(matrix);
     }

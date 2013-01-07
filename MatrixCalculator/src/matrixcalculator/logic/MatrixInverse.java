@@ -1,7 +1,13 @@
 package matrixcalculator.logic;
 
 public class MatrixInverse extends Matrix {
-
+    
+    /**
+     * Luo uuden MatrixInverse-olion, jolla voidaan laskea matriisin 
+     * käänteismatriisi. Perii luokan Matrix.
+     *
+     * @param matrix matriisin arvot kaksiulotteisena double-taulukkona
+     */
     public MatrixInverse(double[][] matrix) {
         super(matrix);
     }
@@ -13,6 +19,9 @@ public class MatrixInverse extends Matrix {
      * @return Matrix-olio, jossa käänteismatriisi laskettuna
      */
     public Matrix inverse() {
+        
+        // Ei yritetä laskea käänteismariisia, mikäli matriisi ei ole
+        // neliömatriisi tai matriisin determinantti on 0
         if (this.rows != this.columns) {
             return null;
         }
@@ -20,50 +29,16 @@ public class MatrixInverse extends Matrix {
             return null;
         }
         
-        MatrixGaussianEliminationUtils gaussianUtils = new MatrixGaussianEliminationUtils();
-
         double[][] matrix = addIdentityMatrix(this.getValues());
 
-        int maxRow = 0;
+        Matrix rrefMatrix = new MatrixReducedRowEchelonForm(matrix).rref();
 
-        for (int k = 0; k < matrix.length; k++) {
-            maxRow = k;
-
-            // Pivotoidaan suurimman alkion mukaan
-            for (int i = k; i < matrix.length; i++) {
-                if (matrix[i][k] > matrix[maxRow][k]) {
-                    maxRow = i;
-                }
-            }
-            gaussianUtils.swapRows(matrix, k, maxRow);
-
-            // Muutetaan yläkolmiomuotoon
-            for (int i = k + 1; i < matrix.length; i++) {
-                double multiplier = matrix[i][k] / matrix[k][k];
-                gaussianUtils.substractRowWithMultiplier(matrix[k], matrix[i], multiplier);
-                
-                matrix[i][k] = 0;
-            }
-        }
-
-        for (int k = matrix.length - 1; k >= 0; k--) {
-            int pivotIndex = gaussianUtils.findRowPivot(matrix[k]);
-
-            for (int i = 0; i < k; i++) {
-                double multiplier = matrix[i][pivotIndex] / matrix[k][pivotIndex];
-                gaussianUtils.substractRowWithMultiplier(matrix[k], matrix[i], multiplier);
-            }
-            
-            double pivot = matrix[k][pivotIndex];
-
-            for (int i = pivotIndex; i < matrix[k].length; i++) {
-                matrix[k][i] /= pivot;
-            }
-        }
-
+        matrix = rrefMatrix.getValues();
+        
         return new Matrix(splitInverseMatrix(matrix));
     }
 
+    // Apumetodi, joka erottaa käänteismatriisin matriisista
     private double[][] splitInverseMatrix(double[][] matrix) {
         double[][] inverseMatrix = new double[matrix.length][matrix.length];
 
@@ -76,6 +51,7 @@ public class MatrixInverse extends Matrix {
         return inverseMatrix;
     }
     
+    // Apumetodi, joka lisää matriisiin identiteettimatriisin
     private double[][] addIdentityMatrix(double[][] matrix) {
         double[][] combinedMatrix = new double[matrix.length][matrix.length * 2];
         
@@ -83,6 +59,7 @@ public class MatrixInverse extends Matrix {
             for (int j = 0; j < matrix.length; j++) {
                 combinedMatrix[i][j] = matrix[i][j];
             }
+            
         }
         for (int i = matrix.length; i < combinedMatrix[0].length; i++) {
             combinedMatrix[i - matrix.length][i] = 1;

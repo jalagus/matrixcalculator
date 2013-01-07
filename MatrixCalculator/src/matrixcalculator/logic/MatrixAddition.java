@@ -2,6 +2,12 @@ package matrixcalculator.logic;
 
 public class MatrixAddition extends Matrix {
     
+    /**
+     * Luo uuden MatrixAddition-olion, jolla voidaan suorittaa matriisien 
+     * yhteenlaskuja. Perii luokan Matrix.
+     *
+     * @param matrix matriisin arvot kaksiulotteisena double-taulukkona
+     */
     public MatrixAddition(double[][] matrix) {
         super(matrix);
     }
@@ -9,25 +15,25 @@ public class MatrixAddition extends Matrix {
     /**
      * Laskee kaksi matriisia yhteen ja palauttaa tuloksen Matrix-tyypin oliona.
      *
-     * @param mat matriisi jonka kanssa yhteenlasku suoritetaan
+     * @param matrix matriisi jonka kanssa yhteenlasku suoritetaan
      * @return Matrix-olion, jossa on yhteenlaskun tulos
      */
-    public Matrix add(Matrix mat) {
-        if (this.rows != mat.rows || this.columns != mat.columns) {
+    public Matrix add(Matrix matrix) {
+        if (this.rows != matrix.rows || this.columns != matrix.columns) {
             return null;
         }
 
-        double[][] retMatrix = new double[rows][columns];
-        double[][] matB = mat.getValues();
-        double[][] matA = this.getValues();
+        double[][] resultMatrix = new double[rows][columns];
+        double[][] matrixB = matrix.getValues();
+        double[][] matrixA = this.getValues();
         
 
         for (int i = 0; i < rows; i++) {
             for (int a = 0; a < columns; a++) {
-                retMatrix[i][a] = matA[i][a] + matB[i][a];
+                resultMatrix[i][a] = matrixA[i][a] + matrixB[i][a];
             }
         }
 
-        return new Matrix(retMatrix);
+        return new Matrix(resultMatrix);
     }    
 }

@@ -1,7 +1,13 @@
 package matrixcalculator.logic;
 
 public class MatrixDeterminant extends Matrix {
-    
+
+    /**
+     * Luo uuden MatrixDeterminant-olion, jolla voidaan suorittaa matriisien 
+     * determinantin laskeminen. Perii luokan Matrix.
+     *
+     * @param matrix matriisin arvot kaksiulotteisena double-taulukkona
+     */    
     public MatrixDeterminant(double[][] matrix) {
         super(matrix);
     }
