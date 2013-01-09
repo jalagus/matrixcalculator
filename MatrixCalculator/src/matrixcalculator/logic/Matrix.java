@@ -27,9 +27,9 @@ public class Matrix {
     }
 
     /**
-     * Palauttaa matriisin arvot kaksiulotteisena double-taulukkona
+     * Palauttaa kopion matriisin arvoista kaksiulotteisena double-taulukkona
      *
-     * @return Kaksiulotteinen double-tyypin taulukko
+     * @return Kaksiulotteinen double-tyypin taulukko, jossa matriisin arvot
      */
     public double[][] getValues() {
         double[][] returnValues = new double[this.values.length][this.values[0].length];
@@ -77,6 +77,13 @@ public class Matrix {
         return hash;
     }
 
+    /**
+     * Ylikirjoittaa equalsin. Vertailee yhtenäisyyttä matriisin arvojen 
+     * perusteella.
+     * 
+     * @param obj jossa vertailtava olio
+     * @return true, jos oliot sisältävät samat arvo ja false, mikäli eivät
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

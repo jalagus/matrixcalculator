@@ -19,12 +19,17 @@ public class MatrixGaussianEliminationUtils {
 
     /**
      * Vähentää ensimmäisestä rivistä toista riviä multiplier-parametrin lukumäärän verran.
+     * Taulukoiden on oltava yhtä pitkiä.
      *
-     * @param row1 rivi joka vähennetään
-     * @param row2 rivi josta vähennetään
-     * @param multiplier kerrat joilla vähennettävää riviä vähennetään
+     * @param row1 rivi, joka vähennetään
+     * @param row2 rivi, josta vähennetään
+     * @param multiplier kerrat, joilla vähennettävää riviä vähennetään
      */
     public void substractRowWithMultiplier(double[] row1, double[] row2, double multiplier) {
+        if (row1.length != row2.length) {
+            throw new IllegalArgumentException("Rivien on oltava yhtä pitkiä");
+        }
+        
         for (int i = 0; i < row1.length; i++) {
             row2[i] -= row1[i] * multiplier;
         }
@@ -40,6 +45,7 @@ public class MatrixGaussianEliminationUtils {
      */
     public void swapRows(double[][] matrix, int row1, int row2) {
         double[] temp = matrix[row1];
+        
         matrix[row1] = matrix[row2];
         matrix[row2] = temp;
     }    

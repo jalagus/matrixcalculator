@@ -1,0 +1,16 @@
+Viikkoraportti 4
+
+** Mitä opin tällä viikolla?
+Sen, että kannattaa testata jo heti alusta lähtien myös isommilla syötteillä sekä käsin ja varmistaa, että kaikki metodit varmasti toimivat. Muussa tapauksessa saattaa tulla yllättäviä tuloksia ja kiire lopullisen toteutuksen kanssa.
+
+** Mikä jäi epäselväksi?
+Ominaisarvoille ja -vektoreille olisi kiva ollut löytää jokin tehokas algoritmi, joka olisi selkeä toteuttaa, mutta aika ei enää riittänyt yhden suuren ja hankalan algorimtin toteuttamiseen, kun tehtävänä oli vielä käänteismatriisille uusi algoritmi.
+
+** Miten ohjelma on edistynyt?
+Viikonlopulla huomasin, tehdessä lopullisia testejä ja testaillessa käsin ohjelmaa, että käänteismatriisin lasku oli melkoisen pielessä ja siten viikolla suurin osa ajasta on mennyt käänteismatriisin laskemisalgoritmin tekoon. 
+
+Käänteismatriisin laskemiseen löytyi melko yksinkertainen algoritmi, joka käytti ns. cofactor-matriisia apuna, jossa laskettiin uusi matriisi ja jokaiselle arvolle determinantti. Koska yhden determinantin laskeminen vie aikaa O(n^3) oli jo lähtökohtaisesti nähtävissä, että siitä syntyvä O(n^4)-algoritmi olisi todella hidas.
+
+Ongelmaa pohtiessa ja tutkiessa löytyi kuitenkin myös tehokkaampi algoritmi redusoidun porrasmatriisin laskemiseen, joka sivutuotteena tuottaa haluttaessa myös käänteismatriisin. Algoritmina toimii siis Gaussin-Jordanin-eliminointimenetelmää käyttävä algoritmi.
+
+Muu aika on mennyt viilatessa dokumentaatiota ja testejä kuntoon, sekä refaktoroidessa testiluokkia pienemmiksi paloiksi.
