@@ -8,31 +8,37 @@ import matrixcalculator.logic.*;
 
 public class PerformanceTests {
     
+    /*Testitiedostot
+     * ../Dokumentit/Testfiles/100x100.txt
+     * ../Dokumentit/Testfiles/250x250.txt
+     * ../Dokumentit/Testfiles/500x500.txt
+     */
     public static void main(String[] args) {
         
-        double det = new MatrixDeterminant(loadMatrixFromFile("../Dokumentit/Testfiles/250x250.txt").getValues()).determinant();
-        System.out.println(det);
-//        int testCases = 1000;
-//        
-//        testAddition(testCases, "../Dokumentit/Testfiles/100x100.txt");
-//        System.out.println("");
-//        
-//        testMultiplication(testCases, "../Dokumentit/Testfiles/100x100.txt");
-//        System.out.println("");
-//        
-//        testRREF(testCases, "../Dokumentit/Testfiles/100x100.txt");
-//        System.out.println("");
-//        
-//        testDeterminant(testCases, "../Dokumentit/Testfiles/100x100.txt");
-//        System.out.println("");
-//        
-//        testInversion(testCases, "../Dokumentit/Testfiles/100x100.txt");
-//        System.out.println("");
-//        
-//        testTranspose(testCases, "../Dokumentit/Testfiles/100x100.txt");
-//        System.out.println("");
-//        
-//        testLUDecomposition(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        //double det = new MatrixDeterminant(loadMatrixFromFile("../Dokumentit/Testfiles/250x250.txt").getValues()).determinant();
+        //System.out.println(det);
+        
+        int testCases = 1000;
+        
+        testAddition(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        System.out.println("");
+        
+        testMultiplication(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        System.out.println("");
+        
+        testRREF(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        System.out.println("");
+        
+        testDeterminant(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        System.out.println("");
+        
+        testInversion(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        System.out.println("");
+        
+        testTranspose(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        System.out.println("");
+        
+        testLUDecomposition(testCases, "../Dokumentit/Testfiles/100x100.txt");
     }
     
     public static void testDeterminant(int loops, String filename) {

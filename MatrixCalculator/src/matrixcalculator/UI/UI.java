@@ -17,8 +17,13 @@ public class UI {
     public UI(Scanner scn) {
         this.scn = scn;
         this.registerCommands();
+        
         double[][] testMatrix = {{1,4,2},{4,1,1},{5,3,7}};
+        double[][] testMatrix2 = {{1,4,2,4},{4,1,1,100},{5,3,7,3},{4,1,10,32}};
+        
         matrices.put("A", new Matrix(testMatrix));
+        matrices.put("B", new Matrix(testMatrix2));
+        
     }
 
     public void registerCommands() {
