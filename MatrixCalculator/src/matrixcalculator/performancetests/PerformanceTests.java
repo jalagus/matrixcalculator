@@ -18,27 +18,31 @@ public class PerformanceTests {
         //double det = new MatrixDeterminant(loadMatrixFromFile("../Dokumentit/Testfiles/250x250.txt").getValues()).determinant();
         //System.out.println(det);
         
-        int testCases = 1000;
+        int testCases = 100;
         
-        testAddition(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        String testFile = "../Dokumentit/Testfiles/500x500.txt";
+        
+        testAddition(testCases, testFile);
         System.out.println("");
         
-        testMultiplication(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        testTranspose(testCases, testFile);
         System.out.println("");
         
-        testRREF(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        testMultiplication(testCases, testFile);
+        System.out.println("");
+
+        testLUDecomposition(testCases, testFile);
         System.out.println("");
         
-        testDeterminant(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        testDeterminant(testCases, testFile);
+        System.out.println("");  
+        
+        testRREF(testCases, testFile);
         System.out.println("");
         
-        testInversion(testCases, "../Dokumentit/Testfiles/100x100.txt");
+        testInversion(testCases, testFile);
         System.out.println("");
         
-        testTranspose(testCases, "../Dokumentit/Testfiles/100x100.txt");
-        System.out.println("");
-        
-        testLUDecomposition(testCases, "../Dokumentit/Testfiles/100x100.txt");
     }
     
     public static void testDeterminant(int loops, String filename) {
